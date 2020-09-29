@@ -1,2 +1,6 @@
 .idea
+*.swp
+.DS_Store
 terraform-provider-jamf
+!.gitkeep
+bin/

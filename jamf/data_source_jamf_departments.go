@@ -11,7 +11,7 @@ func dataSourceJamfDepartment() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceJamfDepartmentRead,
 		Schema: map[string]*schema.Schema{
-			"id": {
+			"department_id": {
 				Type:     schema.TypeString,
 				Computed: true,
 			},
@@ -33,15 +33,9 @@ func dataSourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m
 		return diag.FromErr(err)
 	}
 
-	if len(*resp.Id) < 1 {
-		return diag.Errorf(ErrMsgGetQueryNoData)
-	}
-	if len(*resp.Id) > 1 {
-		return diag.Errorf(ErrMsgGetQueryMultipleData)
-	}
-
-	d.SetId(*resp.Id)
-	d.Set("name", *resp.Name)
+	d.SetId("depaertment-id")
+	d.Set("department_id", resp.GetId())
+	d.Set("name", resp.GetName())
 
 	return diags
 }

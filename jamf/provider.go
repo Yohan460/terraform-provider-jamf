@@ -32,7 +32,7 @@ func Provider() *schema.Provider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"jamf_department": resourceJamfDepartments(),
+			"jamf_department": resourceJamfDepartment(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{

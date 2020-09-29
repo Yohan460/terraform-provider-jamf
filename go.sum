@@ -225,6 +225,10 @@ github.com/sioncojp/go-jamf-api v0.0.0-20200923113128-91bce963833e h1:4eRzSRf9hV
 github.com/sioncojp/go-jamf-api v0.0.0-20200923113128-91bce963833e/go.mod h1:Mj05Pwpma/QgsZZ/vtGBEJHMwYNO2ZJcXCIGUUS9Fd4=
 github.com/sioncojp/go-jamf-api v0.0.0-20200925074918-88136dc6f828 h1:iE+7YtcOWWi4whGII4nOA2VHs1CX2axnGhFif8zAEbo=
 github.com/sioncojp/go-jamf-api v0.0.0-20200925074918-88136dc6f828/go.mod h1:Mj05Pwpma/QgsZZ/vtGBEJHMwYNO2ZJcXCIGUUS9Fd4=
+github.com/sioncojp/go-jamf-api v0.0.0-20200927233525-30f1b461974c h1:GpL3oCrC5IORb9CTPr3SAn2cgvVvhWwJcCsdwccO4VI=
+github.com/sioncojp/go-jamf-api v0.0.0-20200927233525-30f1b461974c/go.mod h1:Mj05Pwpma/QgsZZ/vtGBEJHMwYNO2ZJcXCIGUUS9Fd4=
+github.com/sioncojp/go-jamf-api v0.0.0-20200927235934-c6c33512b852 h1:+jXE1fdgr70ZOMq+9Kx+iSVT1BYdAfMa2tdGoBcdurY=
+github.com/sioncojp/go-jamf-api v0.0.0-20200927235934-c6c33512b852/go.mod h1:Mj05Pwpma/QgsZZ/vtGBEJHMwYNO2ZJcXCIGUUS9Fd4=
 github.com/spf13/pflag v1.0.2/go.mod h1:DYY7MBk1bdzusC3SYhjObp+wFpr4gzcvqqNjLnInEg4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.2.2/go.mod h1:a8OnRcib4nhh0OaRAV+Yts87kKdq0PP7pXfy6kDkUVs=
