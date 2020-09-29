@@ -3,4 +3,5 @@
 .DS_Store
 terraform-provider-jamf
 !.gitkeep
+dist/
 bin/
