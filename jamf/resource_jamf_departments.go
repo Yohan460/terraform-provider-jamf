@@ -39,16 +39,18 @@ func buildJamfDepartmentStruct(d *schema.ResourceData) *jamf.Department {
 }
 
 func resourceJamfDepartmentCreate(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
-	var diags diag.Diagnostics
 	c := m.(*jamf.Client)
 
 	b := buildJamfDepartmentStruct(d)
 
-	if _, err := c.CreateDepartment(b.Name); err != nil {
+	out, err := c.CreateDepartment(b.Name)
+	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	return diags
+	d.SetId(out.GetId())
+
+	return resourceJamfDepartmentRead(ctx, d, m)
 }
 
 func resourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
