@@ -1,6 +1,6 @@
 # Terraform Provider for Jamf
 
-# Quick Start
+## Quick Start
 
 ```hcl
 provider "jamf" {
@@ -14,4 +14,57 @@ provider "jamf" {
 data "jamf_department" "example" {
     name = "hoge"
 }
+```
+
+## Release
+
+```shell
+$ goreleaser
+```
+
+## Development
+
+```shell
+### local install terraform & provider to bin/
+$ make terraform/install
+$ make build
+
+# tf file
+$ vim jamf.tf
+terraform {
+  required_providers {
+    jamf = {
+    }
+  }
+}
+
+provider "jamf" {
+    username = "xxxx"
+    password = "xxxx"
+
+    # "This is the xxxx part of xxxx.jamfcloud.com"
+    organization = "xxxx"
+}
+
+data "jamf_department" "example" {
+    name = "hoge"
+}
+
+# you set up below
+$ tree
+.
+├── jamf.tf
+├── plugins
+│   └── registry.terraform.io
+│       └── hashicorp
+│           └── jamf
+│               └── 1.0.0
+│                   └── darwin_amd64
+│                       └── terraform-provider-jamf_v1.0.0
+└── terraform
+
+
+# exec (-plugin-dir is full path)
+$ ./terraform init -plugin-dir=/....../plugins/
+$ ./terraform plan
 ```
