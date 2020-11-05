@@ -25,11 +25,11 @@ $ goreleaser
 ## Development
 
 ```shell
-### local install terraform & provider to bin/
+### local install terraform & build provider to bin/
 $ make terraform/install
 $ make build
 
-# tf file
+# create .tf file
 $ vim jamf.tf
 terraform {
   required_providers {
@@ -50,7 +50,7 @@ data "jamf_department" "example" {
     name = "hoge"
 }
 
-# you set up below
+# Please prepare the following directory structure and files
 $ tree
 .
 ├── jamf.tf
@@ -64,6 +64,7 @@ $ tree
 └── terraform
 
 
+# After moving to the top directory
 # exec (-plugin-dir is full path)
 $ ./terraform init -plugin-dir=/....../plugins/
 $ ./terraform plan

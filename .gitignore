@@ -5,3 +5,4 @@ terraform-provider-jamf
 !.gitkeep
 dist/
 bin/
+tmp/
