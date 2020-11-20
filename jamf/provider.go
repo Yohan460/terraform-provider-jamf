@@ -2,6 +2,7 @@ package jamf
 
 import (
 	"context"
+
 	"github.com/hashicorp/go-cleanhttp"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -17,17 +18,20 @@ func Provider() *schema.Provider {
 	provider := &schema.Provider{
 		Schema: map[string]*schema.Schema{
 			"username": {
-				Type:     schema.TypeString,
-				Required: true,
+				Type:        schema.TypeString,
+				Required:    true,
+				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_USERNAME"}, nil),
 			},
 			"password": {
-				Type:     schema.TypeString,
-				Required: true,
+				Type:        schema.TypeString,
+				Required:    true,
+				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_PASSWORD"}, nil),
 			},
 			"organization": {
 				Type:        schema.TypeString,
 				Required:    true,
 				Description: "This is the xxxx part of xxxx.jamfcloud.com",
+				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_ORGANIZATION"}, nil),
 			},
 		},
 
