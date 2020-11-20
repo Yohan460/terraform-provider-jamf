@@ -69,3 +69,25 @@ $ tree
 $ ./terraform init -plugin-dir=/....../plugins/
 $ ./terraform plan
 ```
+
+## Testing
+
+There are test and accTest.
+
+test is the usual test　The accTest actually makes the resource and checks it.
+
+So if you want to do accTest, you need to have the jamf environment to run it.
+
+```shell
+# test
+$ make test
+
+# acctest
+$ JAMF_USERNAME=xxx JAMF_PASSWORD=xxx JAMF_ORGANIZATION=xxx make testacc
+
+# Running a specific test in acctest
+$ JAMF_USERNAME=xxx JAMF_PASSWORD=xxx JAMF_ORGANIZATION=xxx make testacc TESTARGS="-run TestAccJamfDepartments_basic"
+```
+
+## Document in http://registry.terraform.io/
+

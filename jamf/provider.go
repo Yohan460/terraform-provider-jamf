@@ -19,17 +19,17 @@ func Provider() *schema.Provider {
 		Schema: map[string]*schema.Schema{
 			"username": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_USERNAME"}, nil),
 			},
 			"password": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_PASSWORD"}, nil),
 			},
 			"organization": {
 				Type:        schema.TypeString,
-				Required:    true,
+				Optional:    true,
 				Description: "This is the xxxx part of xxxx.jamfcloud.com",
 				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_ORGANIZATION"}, nil),
 			},
