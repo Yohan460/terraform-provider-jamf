@@ -2,6 +2,7 @@ package jamf
 
 import (
 	"context"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/sioncojp/go-jamf-api"
@@ -33,7 +34,7 @@ func dataSourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m
 		return diag.FromErr(err)
 	}
 
-	d.SetId("depaertment-id")
+	d.SetId("department-id")
 	d.Set("department_id", resp.GetId())
 	d.Set("name", resp.GetName())
 
