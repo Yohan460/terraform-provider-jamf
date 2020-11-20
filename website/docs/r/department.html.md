@@ -3,10 +3,10 @@ layout: "jamf"
 subcategory: "Department"
 page_title: "Jamf: jamf_department"
 description: |-
-  Provides an ECS cluster.
+  Provides an department.
 ---
 
-# gsuite\_group\_settings
+# Resource: jamf_department
 
 Provides an Department.
 
