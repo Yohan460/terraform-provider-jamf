@@ -5,7 +5,7 @@ description: |-
   The Jamf provider is used to interact with the many resources supported by Jamf. The provider needs to be configured with the proper credentials before it can be used.
 ---
 
-# JAmf Provider
+# Jamf Provider
 
 The Jamf provider is used to interact with the
 many resources supported by Jamf. The provider needs to be configured
