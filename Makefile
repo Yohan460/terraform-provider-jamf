@@ -1,4 +1,4 @@
-.PHONY: terraform/* build
+.PHONY: terraform/* build fmtcheck test testacc
 
 ##### Terraform
 OS_TYPE              := $(shell echo $(shell uname) | tr A-Z a-z)
@@ -18,8 +18,18 @@ terraform/install:
 
 
 ##### Go
-NAME := $(notdir $(PWD))
+NAME    := $(notdir $(PWD))
 VERSION := 1.0.0
+TEST    ?= $$(go list ./... |grep -v 'vendor')
 
 build: ## go build
 	CGO_ENABLED=0 go build -o $(BINDIR)/$(NAME)_v$(VERSION) main.go
+
+test:
+	go test $(TEST) -v  -timeout=5m -parallel=4
+
+testacc: fmtcheck
+	TF_ACC=1 go test ./jamf -v -count 1 -parallel 20 $(TESTARGS) -timeout 120m
+
+fmtcheck:
+	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
