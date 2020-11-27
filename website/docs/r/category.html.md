@@ -1,6 +1,6 @@
 ---
 layout: "jamf"
-subcategory: "Category"
+subcategory: "Resources"
 page_title: "Jamf: jamf_category"
 description: |-
   Provides an category.

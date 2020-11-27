@@ -1,6 +1,6 @@
 ---
 layout: "jamf"
-subcategory: "Building"
+subcategory: "Data Sources"
 page_title: "Jamf: jamf_building"
 description: |-
   Provides details about a building.
