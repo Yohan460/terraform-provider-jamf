@@ -24,8 +24,8 @@ func testAccPreCheck(t *testing.T) {
 	if !isPasswordSet() {
 		t.Fatal("JAMF_PASSWORD environment variable must be set for acceptance tests")
 	}
-	if !isOrganizationSet() {
-		t.Fatal("JAMF_ORGANIZATION environment variable must be set for acceptance tests")
+	if !isURLSet() {
+		t.Fatal("JAMF_URL environment variable must be set for acceptance tests")
 	}
 }
 
@@ -43,8 +43,8 @@ func isPasswordSet() bool {
 	return false
 }
 
-func isOrganizationSet() bool {
-	if os.Getenv("JAMF_ORGANIZATION") != "" {
+func isURLSet() bool {
+	if os.Getenv("JAMF_URL") != "" {
 		return true
 	}
 	return false
