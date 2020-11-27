@@ -48,12 +48,12 @@ func resourceJamfCategoryCreate(ctx context.Context, d *schema.ResourceData, m i
 
 	b := buildJamfCategoryStruct(d)
 
-	out, err := c.CreateCategory(b.Name, b.Priority)
+	resp, err := c.CreateCategory(b.Name, b.Priority)
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	d.SetId(out.GetId())
+	d.SetId(resp.GetId())
 
 	return resourceJamfCategoryRead(ctx, d, m)
 }
@@ -62,13 +62,13 @@ func resourceJamfCategoryRead(ctx context.Context, d *schema.ResourceData, m int
 	var diags diag.Diagnostics
 	c := m.(*jamf.Client)
 
-	out, err := c.GetCategoryByName(d.Get("name").(string))
+	resp, err := c.GetCategoryByName(d.Get("name").(string))
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	d.Set("name", out.GetName())
-	d.Set("priority", out.GetPriority())
+	d.Set("name", resp.GetName())
+	d.Set("priority", resp.GetPriority())
 
 	return diags
 }
@@ -103,13 +103,13 @@ func resourceJamfCategoryDelete(ctx context.Context, d *schema.ResourceData, m i
 func importJamfCategoryState(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
 	c := m.(*jamf.Client)
 	d.SetId(d.Id())
-	out, err := c.GetCategory(d.Id())
+	resp, err := c.GetCategory(d.Id())
 	if err != nil {
 		return nil, fmt.Errorf("cannot get Category data")
 	}
 
-	d.Set("name", out.GetName())
-	d.Set("priority", out.GetPriority())
+	d.Set("name", resp.GetName())
+	d.Set("priority", resp.GetPriority())
 
 	return []*schema.ResourceData{d}, nil
 }
