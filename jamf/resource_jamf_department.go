@@ -42,12 +42,12 @@ func resourceJamfDepartmentCreate(ctx context.Context, d *schema.ResourceData, m
 
 	b := buildJamfDepartmentStruct(d)
 
-	out, err := c.CreateDepartment(b.Name)
+	resp, err := c.CreateDepartment(b.Name)
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	d.SetId(out.GetId())
+	d.SetId(resp.GetId())
 
 	return resourceJamfDepartmentRead(ctx, d, m)
 }
@@ -56,12 +56,12 @@ func resourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m i
 	var diags diag.Diagnostics
 	c := m.(*jamf.Client)
 
-	out, err := c.GetDepartmentByName(d.Get("name").(string))
+	resp, err := c.GetDepartmentByName(d.Get("name").(string))
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	d.Set("name", out.GetName())
+	d.Set("name", resp.GetName())
 
 	return diags
 }
@@ -96,12 +96,12 @@ func resourceJamfDepartmentDelete(ctx context.Context, d *schema.ResourceData, m
 func importJamfDepartmentState(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
 	c := m.(*jamf.Client)
 	d.SetId(d.Id())
-	out, err := c.GetDepartment(d.Id())
+	resp, err := c.GetDepartment(d.Id())
 	if err != nil {
 		return nil, fmt.Errorf("cannot get department data")
 	}
 
-	d.Set("name", out.GetName())
+	d.Set("name", resp.GetName())
 
 	return []*schema.ResourceData{d}, nil
 }

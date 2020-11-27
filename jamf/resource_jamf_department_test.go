@@ -7,13 +7,13 @@ import (
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/resource"
 )
 
-func TestAccJamfDepartments_basic(t *testing.T) {
+func TestAccJamfDepartment_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:          func() { testAccPreCheck(t) },
 		ProviderFactories: providerFactories,
 		Steps: []resource.TestStep{
 			{
-				Config:      testAccCheckJamfDepartmentsConfigMissingFields,
+				Config:      testAccCheckJamfDepartmentConfigMissingFields,
 				ExpectError: regexp.MustCompile("The argument \"name\" is required, but no definition was found."),
 			},
 		},
@@ -21,7 +21,7 @@ func TestAccJamfDepartments_basic(t *testing.T) {
 }
 
 const (
-	testAccCheckJamfDepartmentsConfigMissingFields = `
+	testAccCheckJamfDepartmentConfigMissingFields = `
 resource "jamf_department" "test" {
 }`
 )
