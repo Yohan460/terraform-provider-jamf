@@ -3,6 +3,7 @@ package jamf
 import (
 	"context"
 	"fmt"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/sioncojp/go-jamf-api"
@@ -60,7 +61,7 @@ func resourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m i
 	var diags diag.Diagnostics
 	c := m.(*jamf.Client)
 
-	out, err := c.GetDepartmentWithName(d.Get("name").(string))
+	out, err := c.GetDepartmentByName(d.Get("name").(string))
 	if err != nil {
 		return diag.FromErr(err)
 	}

@@ -29,7 +29,7 @@ func dataSourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m
 	var diags diag.Diagnostics
 	c := m.(*jamf.Client)
 
-	resp, err := c.GetDepartment(d.Get("name").(string))
+	resp, err := c.GetDepartmentByName(d.Get("name").(string))
 	if err != nil {
 		return diag.FromErr(err)
 	}
