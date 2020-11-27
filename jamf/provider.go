@@ -38,11 +38,13 @@ func Provider() *schema.Provider {
 		ResourcesMap: map[string]*schema.Resource{
 			"jamf_department": resourceJamfDepartment(),
 			"jamf_category":   resourceJamfCategory(),
+			"jamf_building":   resourceJamfBuilding(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
 			"jamf_department": dataSourceJamfDepartment(),
 			"jamf_category":   dataSourceJamfCategory(),
+			"jamf_building":   dataSourceJamfBuilding(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
