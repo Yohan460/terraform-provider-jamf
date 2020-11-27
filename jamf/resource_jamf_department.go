@@ -3,6 +3,7 @@ package jamf
 import (
 	"context"
 	"fmt"
+
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/sioncojp/go-jamf-api"
@@ -18,11 +19,6 @@ func resourceJamfDepartment() *schema.Resource {
 			StateContext: importJamfDepartmentState,
 		},
 		Schema: map[string]*schema.Schema{
-			"department_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			// Computed values.
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -35,8 +31,8 @@ func resourceJamfDepartment() *schema.Resource {
 
 func buildJamfDepartmentStruct(d *schema.ResourceData) *jamf.Department {
 	var out jamf.Department
+	out.SetId(d.Id())
 	out.SetName(d.Get("name").(string))
-	out.SetId(d.Get("department_id").(string))
 
 	return &out
 }
@@ -60,12 +56,11 @@ func resourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m i
 	var diags diag.Diagnostics
 	c := m.(*jamf.Client)
 
-	out, err := c.GetDepartmentWithName(d.Get("name").(string))
+	out, err := c.GetDepartmentByName(d.Get("name").(string))
 	if err != nil {
 		return diag.FromErr(err)
 	}
 
-	d.Set("department_id", out.GetId())
 	d.Set("name", out.GetName())
 
 	return diags
@@ -106,7 +101,6 @@ func importJamfDepartmentState(ctx context.Context, d *schema.ResourceData, m in
 		return nil, fmt.Errorf("cannot get department data")
 	}
 
-	d.Set("department_id", out.GetId())
 	d.Set("name", out.GetName())
 
 	return []*schema.ResourceData{d}, nil
