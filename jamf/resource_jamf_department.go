@@ -19,11 +19,6 @@ func resourceJamfDepartment() *schema.Resource {
 			StateContext: importJamfDepartmentState,
 		},
 		Schema: map[string]*schema.Schema{
-			"department_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			// Computed values.
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -36,8 +31,8 @@ func resourceJamfDepartment() *schema.Resource {
 
 func buildJamfDepartmentStruct(d *schema.ResourceData) *jamf.Department {
 	var out jamf.Department
+	out.SetId(d.Id())
 	out.SetName(d.Get("name").(string))
-	out.SetId(d.Get("department_id").(string))
 
 	return &out
 }
@@ -66,7 +61,6 @@ func resourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m i
 		return diag.FromErr(err)
 	}
 
-	d.Set("department_id", out.GetId())
 	d.Set("name", out.GetName())
 
 	return diags
@@ -107,7 +101,6 @@ func importJamfDepartmentState(ctx context.Context, d *schema.ResourceData, m in
 		return nil, fmt.Errorf("cannot get department data")
 	}
 
-	d.Set("department_id", out.GetId())
 	d.Set("name", out.GetName())
 
 	return []*schema.ResourceData{d}, nil

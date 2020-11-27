@@ -12,11 +12,6 @@ func dataSourceJamfDepartment() *schema.Resource {
 	return &schema.Resource{
 		ReadContext: dataSourceJamfDepartmentRead,
 		Schema: map[string]*schema.Schema{
-			"department_id": {
-				Type:     schema.TypeString,
-				Computed: true,
-			},
-			// Computed values.
 			"name": {
 				Type:     schema.TypeString,
 				Required: true,
@@ -34,8 +29,7 @@ func dataSourceJamfDepartmentRead(ctx context.Context, d *schema.ResourceData, m
 		return diag.FromErr(err)
 	}
 
-	d.SetId("department-id")
-	d.Set("department_id", resp.GetId())
+	d.SetId(resp.GetId())
 	d.Set("name", resp.GetName())
 
 	return diags

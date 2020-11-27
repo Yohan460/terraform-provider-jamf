@@ -32,4 +32,3 @@ The following arguments are supported:
 In addition to the above arguments, the following attributes are exported:
 
 * `id` - The ID of the department.
-* `department_id` - The ID of the department.
