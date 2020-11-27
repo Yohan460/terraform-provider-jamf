@@ -1,6 +1,6 @@
 ---
 layout: "jamf"
-subcategory: "Category"
+subcategory: "Data Sources"
 page_title: "Jamf: jamf_category"
 description: |-
   Provides details about a category.

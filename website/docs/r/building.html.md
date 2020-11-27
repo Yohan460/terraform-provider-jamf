@@ -1,6 +1,6 @@
 ---
 layout: "jamf"
-subcategory: "Building"
+subcategory: "Resources"
 page_title: "Jamf: jamf_building"
 description: |-
   Provides an building.

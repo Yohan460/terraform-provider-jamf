@@ -1,6 +1,6 @@
 ---
 layout: "jamf"
-subcategory: "Department"
+subcategory: "Resources"
 page_title: "Jamf: jamf_department"
 description: |-
   Provides an department.
