@@ -15,8 +15,8 @@ provider "jamf" {
     username = "xxxx"
     password = "xxxx"
 
-    # "This is the xxxx part of xxxx.jamfcloud.com"
-    organization = "xxxx"
+    # "This is the full url of jamf, xxxx.jamfcloud.com"
+    url = "xxxx"
 }
 
 data "jamf_department" "example" {
