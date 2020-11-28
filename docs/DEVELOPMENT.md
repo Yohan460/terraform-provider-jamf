@@ -59,8 +59,8 @@ So if you want to do accTest, you need to have the jamf environment to run it.
 $ make test
 
 # acctest
-$ JAMF_USERNAME=xxx JAMF_PASSWORD=xxx JAMF_ORGANIZATION=xxx make testacc
+$ JAMF_USERNAME=xxx JAMF_PASSWORD=xxx JAMF_URL=xxx make testacc
 
 # Running a specific test in acctest
-$ JAMF_USERNAME=xxx JAMF_PASSWORD=xxx JAMF_ORGANIZATION=xxx make testacc TESTARGS="-run TestAccJamfDepartments_basic"
+$ JAMF_USERNAME=xxx JAMF_PASSWORD=xxx JAMF_URL=xxx make testacc TESTARGS="-run TestAccJamfDepartments_basic"
 ```

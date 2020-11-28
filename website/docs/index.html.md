@@ -28,8 +28,8 @@ provider "jamf" {
     username = "xxxx"
     password = "xxxx"
 
-    # "This is the xxxx part of xxxx.jamfcloud.com"
-    organization = "xxxx"
+    # "This is the full url of jamf, xxxx.jamfcloud.com"
+    url = "xxxx"
 }
 
 data "jamf_department" "example" {
@@ -52,7 +52,7 @@ explained below:
 configuration and risks secret leakage should this file ever be committed to a
 public version control system.
 
-Static credentials can be provided by adding an `username`, `password` and `organization`
+Static credentials can be provided by adding an `username`, `password` and `url`
 in-line in the Jamf provider block:
 
 Usage:
@@ -63,14 +63,14 @@ provider "jamf" {
     password = "xxxx"
 
     # "This is the xxxx part of xxxx.jamfcloud.com"
-    organization = "xxxx"
+    url = "xxxx"
 }
 ```
 
 ### Environment Variables
 
 You can provide your credentials via the `JAMF_USERNAME`, `JAMF_PASSWORD` and
-`JAMF_ORGANIZATION`, environment variables.
+`JAMF_URL`, environment variables.
 
 ```hcl
 provider "jamf" {}
@@ -81,7 +81,7 @@ Usage:
 ```sh
 $ export JAMF_USERNAME="xxxx"
 $ export JAMF_PASSWORD="xxxx"
-$ export JAMF_ORGANIZATION="xxxx"
+$ export JAMF_URL="xxxx"
 $ terraform plan
 ```
 
@@ -95,4 +95,4 @@ In addition to [generic `provider` arguments](https://www.terraform.io/docs/conf
 
 * `password` - (Optional) This is the Jamf user password.
 
-* `organization` - (Optional) This is the Jamf organization name.
+* `url` - (Optional) This is the Jamf server url.

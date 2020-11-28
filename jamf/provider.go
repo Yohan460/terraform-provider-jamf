@@ -27,11 +27,11 @@ func Provider() *schema.Provider {
 				Optional:    true,
 				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_PASSWORD"}, nil),
 			},
-			"organization": {
+			"url": {
 				Type:        schema.TypeString,
 				Optional:    true,
-				Description: "This is the xxxx part of xxxx.jamfcloud.com",
-				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_ORGANIZATION"}, nil),
+				Description: "This is the full url of jamf, xxxx.jamfcloud.com",
+				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_URL"}, nil),
 			},
 		},
 
@@ -54,7 +54,7 @@ func Provider() *schema.Provider {
 
 func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 	var diags diag.Diagnostics
-	c, err := jamf.NewClient(d.Get("username").(string), d.Get("password").(string), d.Get("organization").(string))
+	c, err := jamf.NewClient(d.Get("username").(string), d.Get("password").(string), d.Get("url").(string))
 	if err != nil {
 		diag.FromErr(err)
 	}
