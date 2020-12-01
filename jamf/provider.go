@@ -40,6 +40,7 @@ func Provider() *schema.Provider {
 			"jamf_category":            resourceJamfCategory(),
 			"jamf_building":            resourceJamfBuilding(),
 			"jamf_staticComputerGroup": resourceJamfStaticComputerGroup(),
+			"jamf_smartComputerGroup":  resourceJamfSmartComputerGroup(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{

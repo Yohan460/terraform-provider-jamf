@@ -73,7 +73,7 @@ func dataSourceJamfSmartComputerGroup() *schema.Resource {
 					},
 				},
 			},
-			"computers": {
+			"computer": {
 				Type:     schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
@@ -150,7 +150,7 @@ func deconstructJamfComputerGroupStruct(d *schema.ResourceData, in *jamf.Compute
 			"serial_number": v.SerialNumber,
 		}
 	}
-	d.Set("computers", comps)
+	d.Set("computer", comps)
 
 	return
 }

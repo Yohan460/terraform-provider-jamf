@@ -53,6 +53,7 @@ func resourceJamfStaticComputerGroup() *schema.Resource {
 						"id": {
 							Type:     schema.TypeInt,
 							Optional: true,
+							Computed: true,
 						},
 						"name": {
 							Type:     schema.TypeString,
@@ -61,6 +62,7 @@ func resourceJamfStaticComputerGroup() *schema.Resource {
 						"serial_number": {
 							Type:     schema.TypeString,
 							Optional: true,
+							Computed: true,
 						},
 					},
 				},
@@ -119,6 +121,7 @@ func resourceJamfStaticComputerGroupCreate(ctx context.Context, d *schema.Resour
 	if b.Site.Name != "" {
 		group.Site = b.Site
 	}
+	group.IsSmart = b.IsSmart
 	group.Computers = b.Computers
 
 	id, err := c.CreateComputerGroup(group)
@@ -135,7 +138,11 @@ func resourceJamfStaticComputerGroupRead(ctx context.Context, d *schema.Resource
 	var diags diag.Diagnostics
 	c := m.(*jamf.Client)
 
-	resp, err := c.GetComputerGroupByName(d.Get("name").(string))
+	id, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return diag.FromErr(err)
+	}
+	resp, err := c.GetComputerGroup(id)
 	if err != nil {
 		return diag.FromErr(err)
 	}
