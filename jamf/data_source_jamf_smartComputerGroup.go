@@ -110,20 +110,26 @@ func dataSourceJamfSmartComputerGroupRead(ctx context.Context, d *schema.Resourc
 		return diags
 	}
 
-	d.SetId(strconv.Itoa(resp.ID))
-	d.Set("name", resp.Name)
+	deconstructJamfComputerGroupStruct(d, resp)
 
-	if resp.Site.ID != -1 {
+	return diags
+}
+
+func deconstructJamfComputerGroupStruct(d *schema.ResourceData, in *jamf.ComputerGroup) {
+	d.SetId(strconv.Itoa(in.ID))
+	d.Set("name", in.Name)
+
+	if in.Site.ID != -1 {
 		d.Set("site", []interface{}{
 			map[string]interface{}{
-				"id":   resp.Site.ID,
-				"name": resp.Site.Name,
+				"id":   in.Site.ID,
+				"name": in.Site.Name,
 			},
 		})
 	}
 
-	criterias := make([]interface{}, len(resp.Criteria), len(resp.Criteria))
-	for i, v := range resp.Criteria {
+	criterias := make([]interface{}, len(in.Criteria), len(in.Criteria))
+	for i, v := range in.Criteria {
 		criterias[i] = map[string]interface{}{
 			"priority":      v.Priority,
 			"name":          v.Name,
@@ -136,8 +142,8 @@ func dataSourceJamfSmartComputerGroupRead(ctx context.Context, d *schema.Resourc
 	}
 	d.Set("criteria", criterias)
 
-	comps := make([]interface{}, len(resp.Computers), len(resp.Computers))
-	for i, v := range resp.Computers {
+	comps := make([]interface{}, len(in.Computers), len(in.Computers))
+	for i, v := range in.Computers {
 		comps[i] = map[string]interface{}{
 			"id":            v.ID,
 			"name":          v.Name,
@@ -146,5 +152,5 @@ func dataSourceJamfSmartComputerGroupRead(ctx context.Context, d *schema.Resourc
 	}
 	d.Set("computers", comps)
 
-	return diags
+	return
 }

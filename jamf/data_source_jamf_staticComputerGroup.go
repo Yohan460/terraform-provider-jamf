@@ -2,7 +2,6 @@ package jamf
 
 import (
 	"context"
-	"strconv"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -37,7 +36,7 @@ func dataSourceJamfStaticComputerGroup() *schema.Resource {
 					},
 				},
 			},
-			"computers": {
+			"computer": {
 				Type:     schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
@@ -74,27 +73,7 @@ func dataSourceJamfStaticComputerGroupRead(ctx context.Context, d *schema.Resour
 		return diags
 	}
 
-	d.SetId(strconv.Itoa(resp.ID))
-	d.Set("name", resp.Name)
-
-	if resp.Site.ID != -1 {
-		d.Set("site", []interface{}{
-			map[string]interface{}{
-				"id":   resp.Site.ID,
-				"name": resp.Site.Name,
-			},
-		})
-	}
-
-	comps := make([]interface{}, len(resp.Computers), len(resp.Computers))
-	for i, v := range resp.Computers {
-		comps[i] = map[string]interface{}{
-			"id":            v.ID,
-			"name":          v.Name,
-			"serial_number": v.SerialNumber,
-		}
-	}
-	d.Set("computers", comps)
+	deconstructJamfComputerGroupStruct(d, resp)
 
 	return diags
 }
