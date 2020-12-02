@@ -36,15 +36,19 @@ func Provider() *schema.Provider {
 		},
 
 		ResourcesMap: map[string]*schema.Resource{
-			"jamf_department": resourceJamfDepartment(),
-			"jamf_category":   resourceJamfCategory(),
-			"jamf_building":   resourceJamfBuilding(),
+			"jamf_department":          resourceJamfDepartment(),
+			"jamf_category":            resourceJamfCategory(),
+			"jamf_building":            resourceJamfBuilding(),
+			"jamf_staticComputerGroup": resourceJamfStaticComputerGroup(),
+			"jamf_smartComputerGroup":  resourceJamfSmartComputerGroup(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
-			"jamf_department": dataSourceJamfDepartment(),
-			"jamf_category":   dataSourceJamfCategory(),
-			"jamf_building":   dataSourceJamfBuilding(),
+			"jamf_department":          dataSourceJamfDepartment(),
+			"jamf_category":            dataSourceJamfCategory(),
+			"jamf_building":            dataSourceJamfBuilding(),
+			"jamf_staticComputerGroup": dataSourceJamfStaticComputerGroup(),
+			"jamf_smartComputerGroup":  dataSourceJamfSmartComputerGroup(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
