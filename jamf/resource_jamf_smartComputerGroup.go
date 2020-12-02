@@ -189,10 +189,14 @@ func resourceJamfSmartComputerGroupRead(ctx context.Context, d *schema.ResourceD
 	}
 	resp, err := c.GetComputerGroup(id)
 	if err != nil {
-		return diag.FromErr(err)
+		if jamfErr, ok := err.(jamf.Error); ok && jamfErr.StatusCode() == 404 {
+			d.SetId("")
+		} else {
+			return diag.FromErr(err)
+		}
+	} else {
+		deconstructJamfComputerGroupStruct(d, resp)
 	}
-
-	deconstructJamfComputerGroupStruct(d, resp)
 
 	return diags
 }

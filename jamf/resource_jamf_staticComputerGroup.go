@@ -53,7 +53,6 @@ func resourceJamfStaticComputerGroup() *schema.Resource {
 						"id": {
 							Type:     schema.TypeInt,
 							Optional: true,
-							Computed: true,
 						},
 						"name": {
 							Type:     schema.TypeString,
@@ -61,7 +60,6 @@ func resourceJamfStaticComputerGroup() *schema.Resource {
 						},
 						"serial_number": {
 							Type:     schema.TypeString,
-							Optional: true,
 							Computed: true,
 						},
 					},
@@ -144,10 +142,14 @@ func resourceJamfStaticComputerGroupRead(ctx context.Context, d *schema.Resource
 	}
 	resp, err := c.GetComputerGroup(id)
 	if err != nil {
-		return diag.FromErr(err)
+		if jamfErr, ok := err.(jamf.Error); ok && jamfErr.StatusCode() == 404 {
+			d.SetId("")
+		} else {
+			return diag.FromErr(err)
+		}
+	} else {
+		deconstructJamfComputerGroupStruct(d, resp)
 	}
-
-	deconstructJamfComputerGroupStruct(d, resp)
 
 	return diags
 }
