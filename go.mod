@@ -31,5 +31,3 @@ require (
 	google.golang.org/genproto v0.0.0-20201119123407-9b1e624d6bc4 // indirect
 	google.golang.org/grpc v1.33.2 // indirect
 )
-
-replace github.com/sioncojp/go-jamf-api => /Users/johanmcgwire/go/src/go-jamf-api
