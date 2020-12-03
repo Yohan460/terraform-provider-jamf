@@ -17,6 +17,7 @@ require (
 	github.com/hashicorp/terraform-plugin-go v0.2.0 // indirect
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.3.0
 	github.com/hashicorp/yamux v0.0.0-20200609203250-aecfd211c9ce // indirect
+	github.com/mitchellh/go-homedir v1.1.0
 	github.com/mitchellh/go-testing-interface v1.14.1 // indirect
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.4.0 // indirect
@@ -30,3 +31,5 @@ require (
 	google.golang.org/genproto v0.0.0-20201119123407-9b1e624d6bc4 // indirect
 	google.golang.org/grpc v1.33.2 // indirect
 )
+
+replace github.com/sioncojp/go-jamf-api => /Users/johanmcgwire/go/src/go-jamf-api

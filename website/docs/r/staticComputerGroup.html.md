@@ -28,7 +28,7 @@ resource "jamf_staticComputerGroup" "test_static_1" {
 
 The following arguments are supported:
 
-* `name`      - (Required) The name of the department.
+* `name`      - (Required) The name of the group.
 * `computer`  - (Optional) List of computers to to be in the group.
    * `id`            - (Optional) Jamf ID of the computer.
    * `serial_number` - (Optional) Serial Number of the computer.
