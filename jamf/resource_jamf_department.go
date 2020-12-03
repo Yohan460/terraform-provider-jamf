@@ -3,6 +3,7 @@ package jamf
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
@@ -15,6 +16,14 @@ func resourceJamfDepartment() *schema.Resource {
 		ReadContext:   resourceJamfDepartmentRead,
 		UpdateContext: resourceJamfDepartmentUpdate,
 		DeleteContext: resourceJamfDepartmentDelete,
+
+		Timeouts: &schema.ResourceTimeout{
+			Create: schema.DefaultTimeout(1 * time.Minute),
+			Read:   schema.DefaultTimeout(1 * time.Minute),
+			Update: schema.DefaultTimeout(1 * time.Minute),
+			Delete: schema.DefaultTimeout(1 * time.Minute),
+		},
+
 		Importer: &schema.ResourceImporter{
 			StateContext: importJamfDepartmentState,
 		},
