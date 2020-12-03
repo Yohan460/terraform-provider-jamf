@@ -35,8 +35,7 @@ func resourceJamfScript() *schema.Resource {
 			},
 			"category_name": {
 				Type:     schema.TypeString,
-				Optional: true,
-				Default:  "NONE",
+				Computed: true,
 			},
 			"priority": {
 				Type:     schema.TypeString,

@@ -25,7 +25,7 @@ data "jamf_smartComputerGroup" "test_smart_1" {
 
 The following arguments are supported:
 
-* `name`     - (Required) The name of the department.
+* `name`     - (Required) The name of the group.
 * `criteria` - (Optional) List of computers to to be in the group.
    * `priority`      - (Optional) Priority of the criteria to be evaluated, must start at zero and increase by one.
    * `and_or`        - (Optional) Join your search with `and` or `or`. Default: `and`
