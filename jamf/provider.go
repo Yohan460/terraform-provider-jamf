@@ -52,6 +52,7 @@ func Provider() *schema.Provider {
 			"jamf_smartComputerGroup":  dataSourceJamfSmartComputerGroup(),
 			"jamf_script":              dataSourceJamfScript(),
 			"jamf_package":             dataSourceJamfPackage(),
+			"jamf_policy":              dataSourceJamfPolicy(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
