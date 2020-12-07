@@ -785,7 +785,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 		},
 	}
 
-	// Scope - Computers
+	// Self Service - Category
 	if len(in.SelfService.SelfServiceCategories) != 0 {
 		selfServiceCategory := []interface{}{}
 		for _, v := range in.SelfService.SelfServiceCategories {
