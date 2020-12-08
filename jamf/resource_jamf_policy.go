@@ -37,6 +37,7 @@ func resourceJamfPolicy() *schema.Resource {
 						"enabled": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"trigger": {
 							Type:     schema.TypeString,
@@ -46,26 +47,32 @@ func resourceJamfPolicy() *schema.Resource {
 						"trigger_checkin": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"trigger_enrollment_complete": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"trigger_login": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"trigger_logout": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"trigger_network_state_changed": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"trigger_startup": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"trigger_other": {
 							Type:     schema.TypeString,
@@ -89,10 +96,12 @@ func resourceJamfPolicy() *schema.Resource {
 						"notify_on_each_failed_retry": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"location_user_only": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"target_drive": {
 							Type:     schema.TypeString,
@@ -102,6 +111,7 @@ func resourceJamfPolicy() *schema.Resource {
 						"offline": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"network_requirements": {
 							Type:     schema.TypeString,
@@ -110,18 +120,17 @@ func resourceJamfPolicy() *schema.Resource {
 						},
 						"category": {
 							Type:     schema.TypeSet,
-							Optional: true,
+							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
 									"id": {
 										Type:     schema.TypeString,
-										Optional: true,
-										Default:  "-1",
+										Required: true,
 									},
 									"name": {
 										Type:     schema.TypeString,
-										Computed: true,
+										Required: true,
 									},
 								},
 							},
@@ -134,27 +143,29 @@ func resourceJamfPolicy() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"activation_date": {
 										Type:     schema.TypeString,
-										Optional: true,
+										Computed: true,
 									},
 									"activation_date_epoch": {
 										Type:     schema.TypeInt,
 										Optional: true,
+										Default:  0,
 									},
 									"activation_date_utc": {
 										Type:     schema.TypeString,
-										Optional: true,
+										Computed: true,
 									},
 									"expiration_date": {
 										Type:     schema.TypeString,
-										Optional: true,
+										Computed: true,
 									},
 									"expiration_date_epoch": {
 										Type:     schema.TypeInt,
 										Optional: true,
+										Default:  0,
 									},
 									"expiration_date_utc": {
 										Type:     schema.TypeString,
-										Optional: true,
+										Computed: true,
 									},
 									"no_execute_on": {
 										Type:     schema.TypeString,
@@ -173,7 +184,7 @@ func resourceJamfPolicy() *schema.Resource {
 						},
 						"network_limitations": {
 							Type:     schema.TypeSet,
-							Optional: true,
+							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -196,7 +207,7 @@ func resourceJamfPolicy() *schema.Resource {
 						},
 						"override_default_settings": {
 							Type:     schema.TypeSet,
-							Optional: true,
+							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -212,6 +223,7 @@ func resourceJamfPolicy() *schema.Resource {
 									"force_afp_smb": {
 										Type:     schema.TypeBool,
 										Optional: true,
+										Default:  false,
 									},
 									"sus": {
 										Type:     schema.TypeString,
@@ -228,7 +240,7 @@ func resourceJamfPolicy() *schema.Resource {
 						},
 						"site": {
 							Type:     schema.TypeSet,
-							Optional: true,
+							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -249,15 +261,16 @@ func resourceJamfPolicy() *schema.Resource {
 			},
 			"scope": {
 				Type:     schema.TypeSet,
-				Optional: true,
+				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"all_computers": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
-						"computers": {
+						"computer": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
@@ -277,7 +290,7 @@ func resourceJamfPolicy() *schema.Resource {
 								},
 							},
 						},
-						"computer_groups": {
+						"computer_group": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
@@ -293,7 +306,7 @@ func resourceJamfPolicy() *schema.Resource {
 								},
 							},
 						},
-						"buildings": {
+						"building": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
@@ -309,7 +322,7 @@ func resourceJamfPolicy() *schema.Resource {
 								},
 							},
 						},
-						"departments": {
+						"department": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
@@ -330,13 +343,14 @@ func resourceJamfPolicy() *schema.Resource {
 			},
 			"self_service": {
 				Type:     schema.TypeSet,
-				Optional: true,
+				Required: true,
 				MaxItems: 1,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"use_for_self_service": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"self_service_display_name": {
 							Type:     schema.TypeString,
@@ -359,10 +373,12 @@ func resourceJamfPolicy() *schema.Resource {
 						"force_users_to_view_description": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"feature_on_main_page": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"self_service_icon": {
 							Type:     schema.TypeSet,
@@ -372,7 +388,8 @@ func resourceJamfPolicy() *schema.Resource {
 								Schema: map[string]*schema.Schema{
 									"id": {
 										Type:     schema.TypeInt,
-										Required: true,
+										Optional: true,
+										Default:  0,
 									},
 									"filename": {
 										Type:     schema.TypeString,
@@ -412,7 +429,7 @@ func resourceJamfPolicy() *schema.Resource {
 					},
 				},
 			},
-			"packages": {
+			"package": {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
@@ -445,7 +462,7 @@ func resourceJamfPolicy() *schema.Resource {
 					},
 				},
 			},
-			"scripts": {
+			"script": {
 				Type:     schema.TypeSet,
 				Optional: true,
 				Elem: &schema.Resource{
@@ -500,7 +517,7 @@ func resourceJamfPolicy() *schema.Resource {
 			},
 			"reboot": {
 				Type:     schema.TypeSet,
-				Optional: true,
+				Required: true,
 				Elem: &schema.Resource{
 					Schema: map[string]*schema.Schema{
 						"message": {
@@ -668,268 +685,285 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 	// General
 	id, _ := strconv.Atoi(d.Id())
 	out.General.ID = id
-	out.General.Name = d.Get("general.name").(string)
+	if g, ok := d.GetOk("general"); ok {
+		v := g.(*schema.Set).List()
+		general := v[0].(map[string]interface{})
 
-	if val, ok := d.GetOk("general.enabled"); ok {
-		out.General.Enabled = val.(bool)
-	}
-	if val, ok := d.GetOk("general.trigger"); ok {
-		out.General.Trigger = val.(string)
-	}
-	if val, ok := d.GetOk("general.trigger_checkin"); ok {
-		out.General.TriggerCheckin = val.(bool)
-	}
-	if val, ok := d.GetOk("general.trigger_enrollment_complete"); ok {
-		out.General.TriggerEnrollmentComplete = val.(bool)
-	}
-	if val, ok := d.GetOk("general.trigger_logout"); ok {
-		out.General.TriggerLogout = val.(bool)
-	}
-	if val, ok := d.GetOk("general.trigger_network_state_changed"); ok {
-		out.General.TriggerNetworkStateChanged = val.(bool)
-	}
-	if val, ok := d.GetOk("general.trigger_startup"); ok {
-		out.General.TriggerStartup = val.(bool)
-	}
-	if val, ok := d.GetOk("general.trigger_other"); ok {
-		out.General.TriggerOther = val.(string)
-	}
-	if val, ok := d.GetOk("general.frequency"); ok {
-		out.General.Frequency = val.(string)
-	}
-	if val, ok := d.GetOk("general.retry_event"); ok {
-		out.General.RetryEvent = val.(string)
-	}
-	if val, ok := d.GetOk("general.retry_attempts"); ok {
-		out.General.RetryAttempts = val.(int)
-	}
-	if val, ok := d.GetOk("general.notify_on_each_failed_retry"); ok {
-		out.General.NotifyOnEachFailedRetry = val.(bool)
-	}
-	if val, ok := d.GetOk("general.location_user_only"); ok {
-		out.General.LocationUserOnly = val.(bool)
-	}
-	if val, ok := d.GetOk("general.target_drive"); ok {
-		out.General.TargetDrive = val.(string)
-	}
-	if val, ok := d.GetOk("general.offline"); ok {
-		out.General.Offline = val.(bool)
-	}
-	if val, ok := d.GetOk("general.network_requirements"); ok {
-		out.General.NetworkRequirements = val.(string)
-	}
+		out.General.Name = general["name"].(string)
 
-	// General - Category
-	if v, ok := d.GetOk("general.category"); ok {
-		categoryList := v.(*schema.Set).List()
-		category := categoryList[0].(map[string]interface{})
-		if val, ok := category["name"].(string); ok {
-			out.General.Category.Name = val
+		if val, ok := general["enabled"]; ok {
+			out.General.Enabled = val.(bool)
 		}
-		if val, ok := category["id"].(string); ok {
-			out.General.Category.ID = val
+		if val, ok := general["trigger"]; ok {
+			out.General.Trigger = val.(string)
 		}
-	}
+		if val, ok := general["trigger_checkin"]; ok {
+			out.General.TriggerCheckin = val.(bool)
+		}
+		if val, ok := general["trigger_enrollment_complete"]; ok {
+			out.General.TriggerEnrollmentComplete = val.(bool)
+		}
+		if val, ok := general["trigger_logout"]; ok {
+			out.General.TriggerLogout = val.(bool)
+		}
+		if val, ok := general["trigger_network_state_changed"]; ok {
+			out.General.TriggerNetworkStateChanged = val.(bool)
+		}
+		if val, ok := general["trigger_startup"]; ok {
+			out.General.TriggerStartup = val.(bool)
+		}
+		if val, ok := general["trigger_other"]; ok {
+			out.General.TriggerOther = val.(string)
+		}
+		if val, ok := general["frequency"]; ok {
+			out.General.Frequency = val.(string)
+		}
+		if val, ok := general["retry_event"]; ok {
+			out.General.RetryEvent = val.(string)
+		}
+		if val, ok := general["retry_attempts"]; ok {
+			out.General.RetryAttempts = val.(int)
+		}
+		if val, ok := general["notify_on_each_failed_retry"]; ok {
+			out.General.NotifyOnEachFailedRetry = val.(bool)
+		}
+		if val, ok := general["location_user_only"]; ok {
+			out.General.LocationUserOnly = val.(bool)
+		}
+		if val, ok := general["target_drive"]; ok {
+			out.General.TargetDrive = val.(string)
+		}
+		if val, ok := general["offline"]; ok {
+			out.General.Offline = val.(bool)
+		}
+		if val, ok := general["network_requirements"]; ok {
+			out.General.NetworkRequirements = val.(string)
+		}
 
-	// General - Date and Time Limitations
-	if v, ok := d.GetOk("general.date_time_limitations"); ok {
-		dateAndTimeLimitationList := v.(*schema.Set).List()
-		dateAndTimeLimitation := dateAndTimeLimitationList[0].(map[string]interface{})
-		if val, ok := dateAndTimeLimitation["activation_date"].(string); ok {
-			out.General.DateTimeLimitations.ActivationDate = val
+		// General - Category
+		if v, ok := general["category"]; ok {
+			categoryList := v.(*schema.Set).List()
+			category := categoryList[0].(map[string]interface{})
+			if val, ok := category["name"].(string); ok {
+				out.General.Category.Name = val
+			}
+			if val, ok := category["id"].(string); ok {
+				out.General.Category.ID = val
+			}
 		}
-		if val, ok := dateAndTimeLimitation["activation_date_epoch"].(int); ok {
-			out.General.DateTimeLimitations.ActivationDateEpoch = val
-		}
-		if val, ok := dateAndTimeLimitation["activation_date_utc"].(string); ok {
-			out.General.DateTimeLimitations.ActivationDateUtc = val
-		}
-		if val, ok := dateAndTimeLimitation["expiration_date"].(string); ok {
-			out.General.DateTimeLimitations.ExpirationDate = val
-		}
-		if val, ok := dateAndTimeLimitation["expiration_date_epoch"].(int); ok {
-			out.General.DateTimeLimitations.ExpirationDateEpoch = val
-		}
-		if val, ok := dateAndTimeLimitation["expiration_date_utc"].(string); ok {
-			out.General.DateTimeLimitations.ExpirationDateUtc = val
-		}
-		if val, ok := dateAndTimeLimitation["no_execute_on"].(string); ok {
-			out.General.DateTimeLimitations.NoExecuteOn = val
-		}
-		if val, ok := dateAndTimeLimitation["no_execute_start"].(string); ok {
-			out.General.DateTimeLimitations.NoExecuteStart = val
-		}
-		if val, ok := dateAndTimeLimitation["no_execute_end"].(string); ok {
-			out.General.DateTimeLimitations.NoExecuteEnd = val
-		}
-	}
 
-	// General - Network Limitations
-	if v, ok := d.GetOk("general.network_limitations"); ok {
-		networkLimitationList := v.(*schema.Set).List()
-		networkLimitation := networkLimitationList[0].(map[string]interface{})
-		if val, ok := networkLimitation["minimum_network_connection"].(string); ok {
-			out.General.NetworkLimitations.MinimumNetworkConnection = val
+		// General - Date and Time Limitations
+		if v, ok := general["date_time_limitations"]; ok {
+			dateAndTimeLimitationList := v.(*schema.Set).List()
+			if len(dateAndTimeLimitationList) == 1 {
+				dateAndTimeLimitation := dateAndTimeLimitationList[0].(map[string]interface{})
+				if val, ok := dateAndTimeLimitation["activation_date"].(string); ok {
+					out.General.DateTimeLimitations.ActivationDate = val
+				}
+				if val, ok := dateAndTimeLimitation["activation_date_epoch"].(int); ok {
+					out.General.DateTimeLimitations.ActivationDateEpoch = val
+				}
+				if val, ok := dateAndTimeLimitation["activation_date_utc"].(string); ok {
+					out.General.DateTimeLimitations.ActivationDateUtc = val
+				}
+				if val, ok := dateAndTimeLimitation["expiration_date"].(string); ok {
+					out.General.DateTimeLimitations.ExpirationDate = val
+				}
+				if val, ok := dateAndTimeLimitation["expiration_date_epoch"].(int); ok {
+					out.General.DateTimeLimitations.ExpirationDateEpoch = val
+				}
+				if val, ok := dateAndTimeLimitation["expiration_date_utc"].(string); ok {
+					out.General.DateTimeLimitations.ExpirationDateUtc = val
+				}
+				if val, ok := dateAndTimeLimitation["no_execute_on"].(string); ok {
+					out.General.DateTimeLimitations.NoExecuteOn = val
+				}
+				if val, ok := dateAndTimeLimitation["no_execute_start"].(string); ok {
+					out.General.DateTimeLimitations.NoExecuteStart = val
+				}
+				if val, ok := dateAndTimeLimitation["no_execute_end"].(string); ok {
+					out.General.DateTimeLimitations.NoExecuteEnd = val
+				}
+			}
 		}
-		if val, ok := networkLimitation["any_ip_address"].(bool); ok {
-			out.General.NetworkLimitations.AnyIpAddress = val
-		}
-		if val, ok := networkLimitation["network_segments"].(string); ok {
-			out.General.NetworkLimitations.NetworkSegments = val
-		}
-	}
 
-	// General - Override Default Settings
-	if v, ok := d.GetOk("general.override_default_settings"); ok {
-		overrideDefaultSettingsList := v.(*schema.Set).List()
-		overrideDefaultSettings := overrideDefaultSettingsList[0].(map[string]interface{})
-		if val, ok := overrideDefaultSettings["target_drive"].(string); ok {
-			out.General.OverrideDefaultSettings.TargetDrive = val
+		// General - Network Limitations
+		if v, ok := general["network_limitations"]; ok {
+			networkLimitationList := v.(*schema.Set).List()
+			networkLimitation := networkLimitationList[0].(map[string]interface{})
+			if val, ok := networkLimitation["minimum_network_connection"].(string); ok {
+				out.General.NetworkLimitations.MinimumNetworkConnection = val
+			}
+			if val, ok := networkLimitation["any_ip_address"].(bool); ok {
+				out.General.NetworkLimitations.AnyIpAddress = val
+			}
+			if val, ok := networkLimitation["network_segments"].(string); ok {
+				out.General.NetworkLimitations.NetworkSegments = val
+			}
 		}
-		if val, ok := overrideDefaultSettings["distribution_point"].(string); ok {
-			out.General.OverrideDefaultSettings.DistributionPoint = val
-		}
-		if val, ok := overrideDefaultSettings["force_afp_smb"].(bool); ok {
-			out.General.OverrideDefaultSettings.ForceAfpSmb = val
-		}
-		if val, ok := overrideDefaultSettings["sus"].(string); ok {
-			out.General.OverrideDefaultSettings.Sus = val
-		}
-		if val, ok := overrideDefaultSettings["netboot_server"].(string); ok {
-			out.General.OverrideDefaultSettings.NetbootServer = val
-		}
-	}
 
-	// General - Site
-	if v, ok := d.GetOk("general.site"); ok {
-		siteList := v.(*schema.Set).List()
-		site := siteList[0].(map[string]interface{})
-		if val, ok := site["name"].(string); ok {
-			out.General.Site.Name = val
+		// General - Override Default Settings
+		if v, ok := general["override_default_settings"]; ok {
+			overrideDefaultSettingsList := v.(*schema.Set).List()
+			overrideDefaultSettings := overrideDefaultSettingsList[0].(map[string]interface{})
+			if val, ok := overrideDefaultSettings["target_drive"].(string); ok {
+				out.General.OverrideDefaultSettings.TargetDrive = val
+			}
+			if val, ok := overrideDefaultSettings["distribution_point"].(string); ok {
+				out.General.OverrideDefaultSettings.DistributionPoint = val
+			}
+			if val, ok := overrideDefaultSettings["force_afp_smb"].(bool); ok {
+				out.General.OverrideDefaultSettings.ForceAfpSmb = val
+			}
+			if val, ok := overrideDefaultSettings["sus"].(string); ok {
+				out.General.OverrideDefaultSettings.Sus = val
+			}
+			if val, ok := overrideDefaultSettings["netboot_server"].(string); ok {
+				out.General.OverrideDefaultSettings.NetbootServer = val
+			}
 		}
-		if val, ok := site["id"].(int); ok {
-			out.General.Site.ID = val
+
+		// General - Site
+		if v, ok := general["site"]; ok {
+			siteList := v.(*schema.Set).List()
+			site := siteList[0].(map[string]interface{})
+			if val, ok := site["name"].(string); ok {
+				out.General.Site.Name = val
+			}
+			if val, ok := site["id"].(int); ok {
+				out.General.Site.ID = val
+			}
 		}
 	}
 
 	// Scope
-	if val, ok := d.GetOk("scope.all_computers"); ok {
-		out.Scope.AllComputers = val.(bool)
-	}
+	if s, ok := d.GetOk("scope"); ok {
+		v := s.(*schema.Set).List()
+		scope := v[0].(map[string]interface{})
 
-	// Scope - Computers
-	if v, ok := d.GetOk("scope.computers"); ok {
-		computers := v.(*schema.Set).List()
-		computerList := []jamf.ComputerPolicyList{}
-		for _, c := range computers {
-			computerData := c.(map[string]interface{})
-			computer := jamf.ComputerPolicyList{}
-			if val, ok := computerData["id"].(int); ok {
-				computer.ID = val
-			}
-			computerList = append(computerList, computer)
+		if val, ok := scope["all_computers"]; ok {
+			out.Scope.AllComputers = val.(bool)
 		}
-		out.Scope.Computers = computerList
-	}
 
-	// Scope - Computer Groups
-	if v, ok := d.GetOk("scope.computer_groups"); ok {
-		computerGroups := v.(*schema.Set).List()
-		computerGroupList := []jamf.ComputerGroupListResponse{}
-		for _, c := range computerGroups {
-			computerGroupData := c.(map[string]interface{})
-			computerGroup := jamf.ComputerGroupListResponse{}
-			if val, ok := computerGroupData["id"].(int); ok {
-				computerGroup.ID = val
+		// Scope - Computers
+		if v, ok := scope["computer"]; ok {
+			computers := v.(*schema.Set).List()
+			computerList := []jamf.ComputerPolicyList{}
+			for _, c := range computers {
+				computerData := c.(map[string]interface{})
+				computer := jamf.ComputerPolicyList{}
+				if val, ok := computerData["id"].(int); ok {
+					computer.ID = val
+				}
+				computerList = append(computerList, computer)
 			}
-			computerGroupList = append(computerGroupList, computerGroup)
+			out.Scope.Computers = computerList
 		}
-		out.Scope.ComputerGroups = computerGroupList
-	}
 
-	// Scope - Buildings
-	if v, ok := d.GetOk("scope.buildings"); ok {
-		buildings := v.(*schema.Set).List()
-		buildingList := []jamf.BuildingPolicyList{}
-		for _, c := range buildings {
-			buildingData := c.(map[string]interface{})
-			building := jamf.BuildingPolicyList{}
-			if val, ok := buildingData["id"].(int); ok {
-				building.ID = val
+		// Scope - Computer Groups
+		if v, ok := scope["computer_group"]; ok {
+			computerGroups := v.(*schema.Set).List()
+			computerGroupList := []jamf.ComputerGroupListResponse{}
+			for _, c := range computerGroups {
+				computerGroupData := c.(map[string]interface{})
+				computerGroup := jamf.ComputerGroupListResponse{}
+				if val, ok := computerGroupData["id"].(int); ok {
+					computerGroup.ID = val
+				}
+				computerGroupList = append(computerGroupList, computerGroup)
 			}
-			buildingList = append(buildingList, building)
+			out.Scope.ComputerGroups = computerGroupList
 		}
-		out.Scope.Buildings = buildingList
-	}
 
-	// Scope - Departments
-	if v, ok := d.GetOk("scope.departments"); ok {
-		departments := v.(*schema.Set).List()
-		departmentList := []jamf.DepartmentPolicyList{}
-		for _, c := range departments {
-			departmentData := c.(map[string]interface{})
-			department := jamf.DepartmentPolicyList{}
-			if val, ok := departmentData["id"].(int); ok {
-				department.ID = val
+		// Scope - Buildings
+		if v, ok := scope["building"]; ok {
+			buildings := v.(*schema.Set).List()
+			buildingList := []jamf.BuildingPolicyList{}
+			for _, c := range buildings {
+				buildingData := c.(map[string]interface{})
+				building := jamf.BuildingPolicyList{}
+				if val, ok := buildingData["id"].(int); ok {
+					building.ID = val
+				}
+				buildingList = append(buildingList, building)
 			}
-			departmentList = append(departmentList, department)
+			out.Scope.Buildings = buildingList
 		}
-		out.Scope.Departments = departmentList
+
+		// Scope - Departments
+		if v, ok := scope["department"]; ok {
+			departments := v.(*schema.Set).List()
+			departmentList := []jamf.DepartmentPolicyList{}
+			for _, c := range departments {
+				departmentData := c.(map[string]interface{})
+				department := jamf.DepartmentPolicyList{}
+				if val, ok := departmentData["id"].(int); ok {
+					department.ID = val
+				}
+				departmentList = append(departmentList, department)
+			}
+			out.Scope.Departments = departmentList
+		}
 	}
 
 	// Self Service
-	if val, ok := d.GetOk("self_service.use_for_self_service"); ok {
-		out.SelfService.UseForSelfService = val.(bool)
-	}
-	if val, ok := d.GetOk("self_service.self_service_display_name"); ok {
-		out.SelfService.SelfServiceDisplayName = val.(string)
-	}
-	if val, ok := d.GetOk("self_service.install_button_text"); ok {
-		out.SelfService.InstallButtonText = val.(string)
-	}
-	if val, ok := d.GetOk("self_service.reinstall_button_text"); ok {
-		out.SelfService.ReinstallButtonText = val.(string)
-	}
-	if val, ok := d.GetOk("self_service.self_service_description"); ok {
-		out.SelfService.SelfServiceDescription = val.(string)
-	}
-	if val, ok := d.GetOk("self_service.force_users_to_view_description"); ok {
-		out.SelfService.ForceUsersToViewDescription = val.(bool)
-	}
-	if val, ok := d.GetOk("self_service.feature_on_main_page"); ok {
-		out.SelfService.FeatureOnMainPage = val.(bool)
-	}
-	if v, ok := d.GetOk("self_service.self_service_icon"); ok {
-		selfServiceIconList := v.(*schema.Set).List()
-		selfServiceIcon := selfServiceIconList[0].(map[string]interface{})
-		if val, ok := selfServiceIcon["id"].(int); ok {
-			out.SelfService.SelfServiceIcon.ID = val
-		}
-	}
+	if s, ok := d.GetOk("self_service"); ok {
+		v := s.(*schema.Set).List()
+		selfService := v[0].(map[string]interface{})
 
-	// Self Service - Category
-	if v, ok := d.GetOk("self_service.self_service_categories"); ok {
-		selfServiceCategories := v.(*schema.Set).List()
-		selfServiceCategoryList := []jamf.PolicySelfServiceCategory{}
-		for _, c := range selfServiceCategories {
-			selfServiceCategoryData := c.(map[string]interface{})
-			selfServiceCategory := jamf.PolicySelfServiceCategory{}
-			if val, ok := selfServiceCategoryData["id"].(int); ok {
-				selfServiceCategory.ID = val
-			}
-			if val, ok := selfServiceCategoryData["display_in"].(bool); ok {
-				selfServiceCategory.DisplayIn = val
-			}
-			if val, ok := selfServiceCategoryData["feature_in"].(bool); ok {
-				selfServiceCategory.FeatureIn = val
-			}
-			selfServiceCategoryList = append(selfServiceCategoryList, selfServiceCategory)
+		if val, ok := selfService["use_for_self_service"]; ok {
+			out.SelfService.UseForSelfService = val.(bool)
 		}
-		out.SelfService.SelfServiceCategories = selfServiceCategoryList
+		if val, ok := selfService["self_service_display_name"]; ok {
+			out.SelfService.SelfServiceDisplayName = val.(string)
+		}
+		if val, ok := selfService["install_button_text"]; ok {
+			out.SelfService.InstallButtonText = val.(string)
+		}
+		if val, ok := selfService["reinstall_button_text"]; ok {
+			out.SelfService.ReinstallButtonText = val.(string)
+		}
+		if val, ok := selfService["self_service_description"]; ok {
+			out.SelfService.SelfServiceDescription = val.(string)
+		}
+		if val, ok := selfService["force_users_to_view_description"]; ok {
+			out.SelfService.ForceUsersToViewDescription = val.(bool)
+		}
+		if val, ok := selfService["feature_on_main_page"]; ok {
+			out.SelfService.FeatureOnMainPage = val.(bool)
+		}
+		if v, ok := selfService["self_service_icon"]; ok {
+			selfServiceIconList := v.(*schema.Set).List()
+			selfServiceIcon := selfServiceIconList[0].(map[string]interface{})
+			if val, ok := selfServiceIcon["id"].(int); ok {
+				out.SelfService.SelfServiceIcon.ID = val
+			}
+		}
+
+		// Self Service - Category
+		if v, ok := selfService["self_service_categories"]; ok {
+			selfServiceCategories := v.(*schema.Set).List()
+			selfServiceCategoryList := []jamf.PolicySelfServiceCategory{}
+			for _, c := range selfServiceCategories {
+				selfServiceCategoryData := c.(map[string]interface{})
+				selfServiceCategory := jamf.PolicySelfServiceCategory{}
+				if val, ok := selfServiceCategoryData["id"].(int); ok {
+					selfServiceCategory.ID = val
+				}
+				if val, ok := selfServiceCategoryData["display_in"].(bool); ok {
+					selfServiceCategory.DisplayIn = val
+				}
+				if val, ok := selfServiceCategoryData["feature_in"].(bool); ok {
+					selfServiceCategory.FeatureIn = val
+				}
+				selfServiceCategoryList = append(selfServiceCategoryList, selfServiceCategory)
+			}
+			out.SelfService.SelfServiceCategories = selfServiceCategoryList
+		}
 	}
 
 	// Packages
-	if v, ok := d.GetOk("packages"); ok {
+	if v, ok := d.GetOk("package"); ok {
 		packages := v.(*schema.Set).List()
 		packageList := []jamf.PolicyPackageConfigurationPackage{}
 		for _, c := range packages {
@@ -956,7 +990,7 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 	}
 
 	// Scripts
-	if v, ok := d.GetOk("scripts"); ok {
+	if v, ok := d.GetOk("script"); ok {
 		scripts := v.(*schema.Set).List()
 		scriptList := []jamf.PolicyScript{}
 		for _, c := range scripts {
@@ -998,104 +1032,124 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 	}
 
 	// Reboot
-	if val, ok := d.GetOk("reboot.message"); ok {
-		out.Reboot.Message = val.(string)
-	}
-	if val, ok := d.GetOk("reboot.startup_disk"); ok {
-		out.Reboot.StartupDisk = val.(string)
-	}
-	if val, ok := d.GetOk("reboot.specify_startup"); ok {
-		out.Reboot.SpecifyStartup = val.(string)
-	}
-	if val, ok := d.GetOk("reboot.no_user_logged_in"); ok {
-		out.Reboot.NoUserLoggedIn = val.(string)
-	}
-	if val, ok := d.GetOk("reboot.user_logged_in"); ok {
-		out.Reboot.UserLoggedIn = val.(string)
-	}
-	if val, ok := d.GetOk("reboot.minutes_until_reboot"); ok {
-		out.Reboot.MinutesUntilReboot = val.(int)
-	}
-	if val, ok := d.GetOk("reboot.start_reboot_timer_immediately"); ok {
-		out.Reboot.StartRebootTimerImmediately = val.(bool)
-	}
-	if val, ok := d.GetOk("reboot.file_vault_2_reboot"); ok {
-		out.Reboot.FileVault2Reboot = val.(bool)
+	if r, ok := d.GetOk("reboot"); ok {
+		v := r.(*schema.Set).List()
+		reboot := v[0].(map[string]interface{})
+
+		if val, ok := reboot["message"]; ok {
+			out.Reboot.Message = val.(string)
+		}
+		if val, ok := reboot["startup_disk"]; ok {
+			out.Reboot.StartupDisk = val.(string)
+		}
+		if val, ok := reboot["specify_startup"]; ok {
+			out.Reboot.SpecifyStartup = val.(string)
+		}
+		if val, ok := reboot["no_user_logged_in"]; ok {
+			out.Reboot.NoUserLoggedIn = val.(string)
+		}
+		if val, ok := reboot["user_logged_in"]; ok {
+			out.Reboot.UserLoggedIn = val.(string)
+		}
+		if val, ok := reboot["minutes_until_reboot"]; ok {
+			out.Reboot.MinutesUntilReboot = val.(int)
+		}
+		if val, ok := reboot["start_reboot_timer_immediately"]; ok {
+			out.Reboot.StartRebootTimerImmediately = val.(bool)
+		}
+		if val, ok := reboot["file_vault_2_reboot"]; ok {
+			out.Reboot.FileVault2Reboot = val.(bool)
+		}
 	}
 
 	// Maintenance
-	if val, ok := d.GetOk("maintenance.recon"); ok {
-		out.Maintenance.Recon = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.reset_name"); ok {
-		out.Maintenance.ResetName = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.install_all_cached_packages"); ok {
-		out.Maintenance.InstallAllCachedPackages = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.heal"); ok {
-		out.Maintenance.Heal = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.prebindings"); ok {
-		out.Maintenance.Prebindings = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.permissions"); ok {
-		out.Maintenance.Permissions = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.byhost"); ok {
-		out.Maintenance.Byhost = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.system_cache"); ok {
-		out.Maintenance.SystemCache = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.user_cache"); ok {
-		out.Maintenance.UserCache = val.(bool)
-	}
-	if val, ok := d.GetOk("maintenance.verify"); ok {
-		out.Maintenance.Verify = val.(bool)
+	if m, ok := d.GetOk("maintenance"); ok {
+		v := m.(*schema.Set).List()
+		maintenance := v[0].(map[string]interface{})
+
+		if val, ok := maintenance["recon"]; ok {
+			out.Maintenance.Recon = val.(bool)
+		}
+		if val, ok := maintenance["reset_name"]; ok {
+			out.Maintenance.ResetName = val.(bool)
+		}
+		if val, ok := maintenance["install_all_cached_packages"]; ok {
+			out.Maintenance.InstallAllCachedPackages = val.(bool)
+		}
+		if val, ok := maintenance["heal"]; ok {
+			out.Maintenance.Heal = val.(bool)
+		}
+		if val, ok := maintenance["prebindings"]; ok {
+			out.Maintenance.Prebindings = val.(bool)
+		}
+		if val, ok := maintenance["permissions"]; ok {
+			out.Maintenance.Permissions = val.(bool)
+		}
+		if val, ok := maintenance["byhost"]; ok {
+			out.Maintenance.Byhost = val.(bool)
+		}
+		if val, ok := maintenance["system_cache"]; ok {
+			out.Maintenance.SystemCache = val.(bool)
+		}
+		if val, ok := maintenance["user_cache"]; ok {
+			out.Maintenance.UserCache = val.(bool)
+		}
+		if val, ok := maintenance["verify"]; ok {
+			out.Maintenance.Verify = val.(bool)
+		}
 	}
 
 	// Files and Processses
-	if val, ok := d.GetOk("files_and_processes.search_by_path"); ok {
-		out.FilesAndProcesses.SearchByPath = val.(string)
-	}
-	if val, ok := d.GetOk("files_and_processes.delete_file"); ok {
-		out.FilesAndProcesses.DeleteFile = val.(bool)
-	}
-	if val, ok := d.GetOk("files_and_processes.locate_file"); ok {
-		out.FilesAndProcesses.LocateFile = val.(string)
-	}
-	if val, ok := d.GetOk("files_and_processes.update_locate_database"); ok {
-		out.FilesAndProcesses.UpdateLocateDatabase = val.(bool)
-	}
-	if val, ok := d.GetOk("files_and_processes.spotlight_search"); ok {
-		out.FilesAndProcesses.SpotlightSearch = val.(string)
-	}
-	if val, ok := d.GetOk("files_and_processes.search_for_process"); ok {
-		out.FilesAndProcesses.SearchForProcess = val.(string)
-	}
-	if val, ok := d.GetOk("files_and_processes.kill_process"); ok {
-		out.FilesAndProcesses.KillProcess = val.(bool)
-	}
-	if val, ok := d.GetOk("files_and_processes.run_command"); ok {
-		out.FilesAndProcesses.RunCommand = val.(string)
+	if f, ok := d.GetOk("files_and_processes"); ok {
+		v := f.(*schema.Set).List()
+		filesAndProcesses := v[0].(map[string]interface{})
+
+		if val, ok := filesAndProcesses["search_by_path"]; ok {
+			out.FilesAndProcesses.SearchByPath = val.(string)
+		}
+		if val, ok := filesAndProcesses["delete_file"]; ok {
+			out.FilesAndProcesses.DeleteFile = val.(bool)
+		}
+		if val, ok := filesAndProcesses["locate_file"]; ok {
+			out.FilesAndProcesses.LocateFile = val.(string)
+		}
+		if val, ok := filesAndProcesses["update_locate_database"]; ok {
+			out.FilesAndProcesses.UpdateLocateDatabase = val.(bool)
+		}
+		if val, ok := filesAndProcesses["spotlight_search"]; ok {
+			out.FilesAndProcesses.SpotlightSearch = val.(string)
+		}
+		if val, ok := filesAndProcesses["search_for_process"]; ok {
+			out.FilesAndProcesses.SearchForProcess = val.(string)
+		}
+		if val, ok := filesAndProcesses["kill_process"]; ok {
+			out.FilesAndProcesses.KillProcess = val.(bool)
+		}
+		if val, ok := filesAndProcesses["run_command"]; ok {
+			out.FilesAndProcesses.RunCommand = val.(string)
+		}
 	}
 
 	// User Interaction
-	if val, ok := d.GetOk("user_interaction.message_start"); ok {
-		out.UserInteraction.MessageStart = val.(string)
-	}
-	if val, ok := d.GetOk("user_interaction.allow_users_to_defer"); ok {
-		out.UserInteraction.AllowUsersToDefer = val.(bool)
-	}
-	if val, ok := d.GetOk("user_interaction.allow_deferral_until_utc"); ok {
-		out.UserInteraction.AllowDeferralUntilUtc = val.(string)
-	}
-	if val, ok := d.GetOk("user_interaction.allow_deferral_minutes"); ok {
-		out.UserInteraction.AllowDeferralMinutes = val.(int)
-	}
-	if val, ok := d.GetOk("user_interaction.message_finish"); ok {
-		out.UserInteraction.MessageFinish = val.(string)
+	if u, ok := d.GetOk("user_interaction"); ok {
+		v := u.(*schema.Set).List()
+		userInteraction := v[0].(map[string]interface{})
+
+		if val, ok := userInteraction["message_start"]; ok {
+			out.UserInteraction.MessageStart = val.(string)
+		}
+		if val, ok := userInteraction["allow_users_to_defer"]; ok {
+			out.UserInteraction.AllowUsersToDefer = val.(bool)
+		}
+		if val, ok := userInteraction["allow_deferral_until_utc"]; ok {
+			out.UserInteraction.AllowDeferralUntilUtc = val.(string)
+		}
+		if val, ok := userInteraction["allow_deferral_minutes"]; ok {
+			out.UserInteraction.AllowDeferralMinutes = val.(int)
+		}
+		if val, ok := userInteraction["message_finish"]; ok {
+			out.UserInteraction.MessageFinish = val.(string)
+		}
 	}
 
 	return &out
