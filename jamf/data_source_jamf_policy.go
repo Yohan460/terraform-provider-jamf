@@ -94,6 +94,10 @@ func dataSourceJamfPolicy() *schema.Resource {
 							Type:     schema.TypeBool,
 							Computed: true,
 						},
+						"network_requirements": {
+							Type:     schema.TypeString,
+							Computed: true,
+						},
 						"category": {
 							Type:     schema.TypeSet,
 							Computed: true,
@@ -201,10 +205,6 @@ func dataSourceJamfPolicy() *schema.Resource {
 									},
 								},
 							},
-						},
-						"network_requirements": {
-							Type:     schema.TypeString,
-							Computed: true,
 						},
 						"site": {
 							Type:     schema.TypeSet,
@@ -385,7 +385,7 @@ func dataSourceJamfPolicy() *schema.Resource {
 					},
 				},
 			},
-			"packages": {
+			"package": {
 				Type:     schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
@@ -417,7 +417,7 @@ func dataSourceJamfPolicy() *schema.Resource {
 					},
 				},
 			},
-			"scripts": {
+			"script": {
 				Type:     schema.TypeSet,
 				Computed: true,
 				Elem: &schema.Resource{
@@ -734,7 +734,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 			"udid": v.UDID,
 		})
 	}
-	scope["computers"] = computers
+	scope["computer"] = computers
 
 	// Scope - Computer Groups
 	computerGroups := []interface{}{}
@@ -744,7 +744,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 			"name": v.Name,
 		})
 	}
-	scope["computer_groups"] = computerGroups
+	scope["computer_group"] = computerGroups
 
 	// Scope - Buildings
 	buildings := []interface{}{}
@@ -754,7 +754,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 			"name": v.Name,
 		})
 	}
-	scope["buildings"] = buildings
+	scope["building"] = buildings
 
 	// Scope - Departments
 	departments := []interface{}{}
@@ -764,7 +764,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 			"name": v.Name,
 		})
 	}
-	scope["departments"] = departments
+	scope["department"] = departments
 	d.Set("scope", []interface{}{scope})
 
 	// Self Service
@@ -813,7 +813,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 				"update_autorun": v.UpdateAutorun,
 			})
 		}
-		d.Set("packages", packages)
+		d.Set("package", packages)
 	}
 
 	// Scripts
@@ -834,7 +834,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 				"parameter11": v.Parameter11,
 			})
 		}
-		d.Set("scripts", scripts)
+		d.Set("script", scripts)
 	}
 
 	// Reboot
