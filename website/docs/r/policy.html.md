@@ -97,7 +97,7 @@ The following arguments are supported:
   * `self_service_icon`             - (Required) Self Service icon configuration
     * `id`                              - (Optional) ID of the icon, Default `0`
   * `self_service_category`         - (Optional) Self Service category configuration
-    * `id`                              - (Optional) ID of the category
+    * `id`                              - (Optional) ID of the category, if policy category is defined this will be need to be set to same category ID
     * `display_in`                      - (Optional) Display state in the category
     * `feature_in`                      - (Optional) Feature state in the category
 * `package`                     - (Optional) Package information assigned to the policy
