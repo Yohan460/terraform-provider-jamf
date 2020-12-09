@@ -3,7 +3,7 @@ layout: "jamf"
 subcategory: "Data Sources"
 page_title: "Jamf: jamf_policy"
 description: |-
-  Provides details about a smart computer group.
+  Provides details about a policy.
 ---
 
 # Data Source: jamf_policy
@@ -70,8 +70,8 @@ In addition to the above arguments, the following attributes are exported:
     * `any_ip_address` - IP Address range required
     * `network_segments` - Network Segments required
   * `override_default_settings` - Default settings of the policy to override
-    * `target_drive` - ?
-    * `distribution_point` - ?
+    * `target_drive` - Default target installation drive
+    * `distribution_point` - Default distribution point
     * `force_afp_smb` - ?
     * `sus` - ?
     * `netboot_server` - ?
@@ -80,17 +80,17 @@ In addition to the above arguments, the following attributes are exported:
     * `name` - Name of the site
 * `scope` - Scope of the policy
   * `all_computers` - State of the policy being scoped to all computers
-  * `computers` - Details a computer the policy is scoped to
+  * `computer` - Details a computer the policy is scoped to
     * `id` - ID of the computer
     * `name` - Name of the computer
     * `udid` - UDID of the computer
-  * `computer_groups` - Details a computer group the policy is scoped to
+  * `computer_group` - Details a computer group the policy is scoped to
     * `id` - ID of the computer group
     * `name`- Name of the computer group
-  * `buildings` - Details a building the policy is scoped to
+  * `building` - Details a building the policy is scoped to
     * `id` - ID of the building
     * `name` - Name of the building
-  * `departments` - Details a department the policy is scoped to
+  * `department` - Details a department the policy is scoped to
     * `id` - ID of the department
     * `name` - Name of the department
 * `self_service` - Self Service configuration of the policy
@@ -105,7 +105,7 @@ In addition to the above arguments, the following attributes are exported:
     * `id` - ID of the icon
     * `filename` - Filename of the icon
     * `uri` - URI of the icon
-  * `self_service_categories` - Self Service category configuration
+  * `self_service_category` - Self Service category configuration
     * `id` - ID of the category
     * `name` - Name of the category
     * `display_in` - Display state in the category

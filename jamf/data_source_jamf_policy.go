@@ -358,7 +358,7 @@ func dataSourceJamfPolicy() *schema.Resource {
 								},
 							},
 						},
-						"self_service_categories": {
+						"self_service_category": {
 							Type:     schema.TypeSet,
 							Computed: true,
 							Elem: &schema.Resource{
@@ -796,7 +796,7 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 				"feature_in": v.FeatureIn,
 			})
 		}
-		selfService["self_service_categories"] = selfServiceCategory
+		selfService["self_service_category"] = selfServiceCategory
 	}
 	d.Set("self_service", []interface{}{selfService})
 

@@ -382,7 +382,7 @@ func resourceJamfPolicy() *schema.Resource {
 						},
 						"self_service_icon": {
 							Type:     schema.TypeSet,
-							Optional: true,
+							Required: true,
 							MaxItems: 1,
 							Elem: &schema.Resource{
 								Schema: map[string]*schema.Schema{
@@ -402,7 +402,7 @@ func resourceJamfPolicy() *schema.Resource {
 								},
 							},
 						},
-						"self_service_categories": {
+						"self_service_category": {
 							Type:     schema.TypeSet,
 							Optional: true,
 							Elem: &schema.Resource{
@@ -941,7 +941,7 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 		}
 
 		// Self Service - Category
-		if v, ok := selfService["self_service_categories"]; ok {
+		if v, ok := selfService["self_service_category"]; ok {
 			selfServiceCategories := v.(*schema.Set).List()
 			selfServiceCategoryList := []jamf.PolicySelfServiceCategory{}
 			for _, c := range selfServiceCategories {
