@@ -127,32 +127,32 @@ The following arguments are supported:
   * `minutes_until_reboot`          - (Optional) Minutes until the reboot triggers after reboot, Default `5`
   * `start_reboot_timer_immediately`- (Optional) Reboot timer immediate state
   * `file_vault_2_reboot`           - (Optional) ?
-* `maintenance`                 - Maintenance information assigned to the policy
-  * `recon`                         - Recon state after policy completes
-  * `reset_name`                    - Reset name state
-  * `install_all_cached_packages`   - Cached package install state
-  * `heal`                          - ?
-  * `prebindings`                   - ?
-  * `permissions`                   - Disk permissions repair state
-  * `byhost`                        - ByHost repair state
-  * `system_cache`                  - Flush system cache state
-  * `user_cache`                    - Flush user cache state
-  * `verify`                        - Verify startup disk state
-* `files_and_processes`         - File and Process information assigned to the policy
-  * `search_by_path`                - Path to search for file
-  * `delete_file`                   - Deletion state of a file found by `search_by_path`
-  * `locate_file`                   - Path to search for file
-  * `update_locate_database`        - Local database update state of a file found by `locate_file`
-  * `spotlight_search`              - Spotlight search for file
-  * `search_for_process`            - Process to search for
-  * `kill_process`                  - Kill state for process found by `search_for_process`
-  * `run_command`                   - Command to execute as `root`
-* `user_interaction`            - User Interaction information assigned to the policy
-  * `message_start`                 - Message at start of policy
-  * `message_finish`                - Message at end of policy
-  * `allow_users_to_defer`          - Deferral state
-  * `allow_deferral_until_utc`      - Deferral until date in UTC
-  * `allow_deferral_minutes`        - Minutes to defer
+* `maintenance`                 - (Optional) Maintenance information assigned to the policy
+  * `recon`                         - (Optional) Recon state after policy completes
+  * `reset_name`                    - (Optional) Reset name state
+  * `install_all_cached_packages`   - (Optional) Cached package install state
+  * `heal`                          - (Optional) ?
+  * `prebindings`                   - (Optional) ?
+  * `permissions`                   - (Optional) Disk permissions repair state
+  * `byhost`                        - (Optional) ByHost repair state
+  * `system_cache`                  - (Optional) Flush system cache state
+  * `user_cache`                    - (Optional) Flush user cache state
+  * `verify`                        - (Optional) Verify startup disk state
+* `files_and_processes`         - (Optional) File and Process information assigned to the policy
+  * `search_by_path`                - (Optional) Path to search for file
+  * `delete_file`                   - (Optional) Deletion state of a file found by `search_by_path`
+  * `locate_file`                   - (Optional) Path to search for file
+  * `update_locate_database`        - (Optional) Local database update state of a file found by `locate_file`
+  * `spotlight_search`              - (Optional) Spotlight search for file
+  * `search_for_process`            - (Optional) Process to search for
+  * `kill_process`                  - (Optional) Kill state for process found by `search_for_process`
+  * `run_command`                   - (Optional) Command to execute as `root`
+* `user_interaction`            - (Optional) User Interaction information assigned to the policy
+  * `message_start`                 - (Optional) Message at start of policy
+  * `message_finish`                - (Optional) Message at end of policy
+  * `allow_users_to_defer`          - (Optional) Deferral state
+  * `allow_deferral_until_utc`      - (Optional) Deferral until date in UTC
+  * `allow_deferral_minutes`        - (Optional) Minutes to defer
 
 ## Attributes Reference
 
