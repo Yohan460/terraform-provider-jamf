@@ -1,4 +1,4 @@
-module github.com/sioncojp/terraform-provider-jamf
+module github.com/yohan460/terraform-provider-jamf
 
 go 1.15
 
@@ -22,7 +22,7 @@ require (
 	github.com/mitchellh/go-wordwrap v1.0.1 // indirect
 	github.com/mitchellh/mapstructure v1.4.0 // indirect
 	github.com/oklog/run v1.1.0 // indirect
-	github.com/sioncojp/go-jamf-api v0.0.0-20201203145354-708c7247dc7a
+	github.com/yohan460/go-jamf-api v0.0.0-20210215221750-f9598ccc5609
 	github.com/zclconf/go-cty v1.7.0 // indirect
 	go4.org v0.0.0-20200411211856-f5505b9728dd // indirect
 	golang.org/x/net v0.0.0-20201202161906-c7110b5ffcbb // indirect

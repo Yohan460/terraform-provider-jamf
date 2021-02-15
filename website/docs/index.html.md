@@ -20,7 +20,7 @@ Terraform 0.13 and later:
 ```hcl
 terraform {
   required_providers {
-    sioncojp/jamf = {}
+    yohan460/jamf = {}
   }
 }
 

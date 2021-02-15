@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/plugin"
-	"github.com/sioncojp/terraform-provider-jamf/jamf"
+	"github.com/yohan460/terraform-provider-jamf/jamf"
 	"log"
 )
 
@@ -15,7 +15,7 @@ func main() {
 	flag.Parse()
 
 	if debugMode {
-		err := plugin.Debug(context.Background(), "registry.terraform.io/sioncojp/jamf",
+		err := plugin.Debug(context.Background(), "registry.terraform.io/yohan460/jamf",
 			&plugin.ServeOpts{
 				ProviderFunc: jamf.Provider,
 			})

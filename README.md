@@ -7,7 +7,7 @@
 
 ## Quick Start
 
-- [Using the provider](https://registry.terraform.io/providers/sioncojp/jamf/latest/docs)
+- [Using the provider](https://registry.terraform.io/providers/yohan460/jamf/latest/docs)
 - [Provider development](docs/DEVELOPMENT.md)
 
 ```hcl
@@ -28,7 +28,7 @@ data "jamf_department" "example" {
 
 Full, comprehensive documentation is available on the Terraform website:
 
-https://registry.terraform.io/providers/sioncojp/jamf/latest/docs
+https://registry.terraform.io/providers/yohan460/jamf/latest/docs
 
 ## Release
 
