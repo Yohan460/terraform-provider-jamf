@@ -234,7 +234,7 @@ func resourceJamfComputerConfigurationProfile() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"name": {
 													Type:     schema.TypeString,
-													Computed: true,
+													Required: true,
 												},
 											},
 										},
@@ -246,7 +246,7 @@ func resourceJamfComputerConfigurationProfile() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"name": {
 													Type:     schema.TypeString,
-													Computed: true,
+													Required: true,
 												},
 											},
 										},
@@ -366,7 +366,7 @@ func resourceJamfComputerConfigurationProfile() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"name": {
 													Type:     schema.TypeString,
-													Computed: true,
+													Required: true,
 												},
 											},
 										},
@@ -378,7 +378,7 @@ func resourceJamfComputerConfigurationProfile() *schema.Resource {
 											Schema: map[string]*schema.Schema{
 												"name": {
 													Type:     schema.TypeString,
-													Computed: true,
+													Required: true,
 												},
 											},
 										},
