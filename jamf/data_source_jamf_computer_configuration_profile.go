@@ -551,7 +551,7 @@ func deconstructJamfComputerConfigurationProfileStruct(d *schema.ResourceData, i
 	general["level"] = in.General.Level
 	general["uuid"] = in.General.UUID
 	general["redeploy_on_update"] = in.General.RedeployOnUpdate
-	if _, hasPayload := general["payload"]; hasPayload {
+	if _, hasMobileConfigPayload := general["mobileconfig_path"]; !hasMobileConfigPayload {
 		general["payload"] = in.General.Payload
 	}
 	general["category"] = []interface{}{

@@ -569,11 +569,13 @@ func buildJamfComputerConfigurationProfileStruct(d *schema.ResourceData) (*jamf.
 
 		// MobileConfig Payload
 		if val, ok := general["mobileconfig_path"]; ok {
-			content, err := loadFileContent(val.(string))
-			if err != nil {
-				return &out, err
+			if str := val.(string); str != "" {
+				content, err := loadFileContent(str)
+				if err != nil {
+					return &out, err
+				}
+				out.General.Payload = content
 			}
-			out.General.Payload = content
 		}
 
 		// General - Category
