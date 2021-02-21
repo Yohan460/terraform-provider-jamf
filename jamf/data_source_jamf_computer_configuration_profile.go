@@ -536,27 +536,34 @@ func deconstructJamfComputerConfigurationProfileStruct(d *schema.ResourceData, i
 	// General
 	d.SetId(strconv.Itoa(in.General.ID))
 
-	general := map[string]interface{}{
-		"id":                  in.General.ID,
-		"name":                in.General.Name,
-		"description":         in.General.Description,
-		"distribution_method": in.General.DistributionMethod,
-		"user_removable":      in.General.UserRemovable,
-		"level":               in.General.Level,
-		"uuid":                in.General.UUID,
-		"redeploy_on_update":  in.General.RedeployOnUpdate,
-		"payload":             in.General.Payload,
-		"category": []interface{}{
-			map[string]interface{}{
-				"id":   in.General.Category.ID,
-				"name": in.General.Category.Name,
-			},
+	general := map[string]interface{}{}
+	if generalInterface, ok := d.GetOk("general"); ok {
+		generalSet := generalInterface.(*schema.Set)
+		generalList := generalSet.List()
+		general = generalList[0].(map[string]interface{})
+	}
+
+	general["id"] = in.General.ID
+	general["name"] = in.General.Name
+	general["description"] = in.General.Description
+	general["distribution_method"] = in.General.DistributionMethod
+	general["user_removable"] = in.General.UserRemovable
+	general["level"] = in.General.Level
+	general["uuid"] = in.General.UUID
+	general["redeploy_on_update"] = in.General.RedeployOnUpdate
+	if _, hasPayload := general["payload"]; hasPayload {
+		general["payload"] = in.General.Payload
+	}
+	general["category"] = []interface{}{
+		map[string]interface{}{
+			"id":   in.General.Category.ID,
+			"name": in.General.Category.Name,
 		},
-		"site": []interface{}{
-			map[string]interface{}{
-				"id":   in.General.Site.ID,
-				"name": in.General.Site.Name,
-			},
+	}
+	general["site"] = []interface{}{
+		map[string]interface{}{
+			"id":   in.General.Site.ID,
+			"name": in.General.Site.Name,
 		},
 	}
 

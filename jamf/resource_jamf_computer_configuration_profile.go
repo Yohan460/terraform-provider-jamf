@@ -20,10 +20,6 @@ func resourceJamfComputerConfigurationProfile() *schema.Resource {
 			StateContext: importJamfComputerConfigurationProfileState,
 		},
 		Schema: map[string]*schema.Schema{
-			"mobileconfig_path": {
-				Type:     schema.TypeString,
-				Optional: true,
-			},
 			"general": {
 				Type:     schema.TypeSet,
 				Required: true,
@@ -65,6 +61,10 @@ func resourceJamfComputerConfigurationProfile() *schema.Resource {
 							Type:     schema.TypeString,
 							Optional: true,
 							Default:  "Newly Assigned",
+						},
+						"mobileconfig_path": {
+							Type:     schema.TypeString,
+							Optional: true,
 						},
 						"category": {
 							Type:     schema.TypeSet,
@@ -542,16 +542,6 @@ func resourceJamfComputerConfigurationProfile() *schema.Resource {
 func buildJamfComputerConfigurationProfileStruct(d *schema.ResourceData) (*jamf.ComputerConfigurationProfile, error) {
 	var out jamf.ComputerConfigurationProfile
 
-	// MobileConfig Payload
-	mobileconfigPath, hasMobileconfigPath := d.GetOk("mobileconfig_path")
-	if hasMobileconfigPath {
-		content, err := loadFileContent(mobileconfigPath.(string))
-		if err != nil {
-			return &out, err
-		}
-		out.General.Payload = content
-	}
-
 	// General
 	id, _ := strconv.Atoi(d.Id())
 	out.General.ID = id
@@ -575,6 +565,15 @@ func buildJamfComputerConfigurationProfileStruct(d *schema.ResourceData) (*jamf.
 		}
 		if val, ok := general["redeploy_on_update"]; ok {
 			out.General.RedeployOnUpdate = val.(string)
+		}
+
+		// MobileConfig Payload
+		if val, ok := general["mobileconfig_path"]; ok {
+			content, err := loadFileContent(val.(string))
+			if err != nil {
+				return &out, err
+			}
+			out.General.Payload = content
 		}
 
 		// General - Category
