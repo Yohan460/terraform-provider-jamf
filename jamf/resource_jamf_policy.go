@@ -848,10 +848,10 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 		// Scope - Computers
 		if v, ok := scope["computer"]; ok {
 			computers := v.(*schema.Set).List()
-			computerList := []jamf.ComputerPolicyList{}
+			computerList := []jamf.ComputerScope{}
 			for _, c := range computers {
 				computerData := c.(map[string]interface{})
-				computer := jamf.ComputerPolicyList{}
+				computer := jamf.ComputerScope{}
 				if val, ok := computerData["id"].(int); ok {
 					computer.ID = val
 				}
@@ -878,10 +878,10 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 		// Scope - Buildings
 		if v, ok := scope["building"]; ok {
 			buildings := v.(*schema.Set).List()
-			buildingList := []jamf.BuildingPolicyList{}
+			buildingList := []jamf.BuildingScope{}
 			for _, c := range buildings {
 				buildingData := c.(map[string]interface{})
-				building := jamf.BuildingPolicyList{}
+				building := jamf.BuildingScope{}
 				if val, ok := buildingData["id"].(int); ok {
 					building.ID = val
 				}
@@ -893,10 +893,10 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 		// Scope - Departments
 		if v, ok := scope["department"]; ok {
 			departments := v.(*schema.Set).List()
-			departmentList := []jamf.DepartmentPolicyList{}
+			departmentList := []jamf.DepartmentScope{}
 			for _, c := range departments {
 				departmentData := c.(map[string]interface{})
-				department := jamf.DepartmentPolicyList{}
+				department := jamf.DepartmentScope{}
 				if val, ok := departmentData["id"].(int); ok {
 					department.ID = val
 				}
@@ -943,10 +943,10 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 		// Self Service - Category
 		if v, ok := selfService["self_service_category"]; ok {
 			selfServiceCategories := v.(*schema.Set).List()
-			selfServiceCategoryList := []jamf.PolicySelfServiceCategory{}
+			selfServiceCategoryList := []jamf.SelfServiceCategory{}
 			for _, c := range selfServiceCategories {
 				selfServiceCategoryData := c.(map[string]interface{})
-				selfServiceCategory := jamf.PolicySelfServiceCategory{}
+				selfServiceCategory := jamf.SelfServiceCategory{}
 				if val, ok := selfServiceCategoryData["id"].(int); ok {
 					selfServiceCategory.ID = val
 				}
