@@ -88,10 +88,10 @@ func buildJamfStaticComputerGroupStruct(d *schema.ResourceData) *jamf.ComputerGr
 
 	if v, ok := d.GetOk("computer"); ok {
 		comps := v.(*schema.Set).List()
-		compList := []jamf.Computer{}
+		compList := []jamf.ComputerGroupComputerEntry{}
 		for _, c := range comps {
 			compData := c.(map[string]interface{})
-			comp := jamf.Computer{}
+			comp := jamf.ComputerGroupComputerEntry{}
 			if val, ok := compData["id"].(int); ok {
 				comp.ID = val
 			}
