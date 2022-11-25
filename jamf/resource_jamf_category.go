@@ -39,8 +39,6 @@ func resourceJamfCategory() *schema.Resource {
 			},
 		},
 	}
-
-	return &schema.Resource{}
 }
 
 func buildJamfCategoryStruct(d *schema.ResourceData) *jamf.Category {

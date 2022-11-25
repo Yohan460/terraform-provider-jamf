@@ -34,8 +34,6 @@ func resourceJamfDepartment() *schema.Resource {
 			},
 		},
 	}
-
-	return &schema.Resource{}
 }
 
 func buildJamfDepartmentStruct(d *schema.ResourceData) *jamf.Department {

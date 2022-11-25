@@ -58,8 +58,6 @@ func resourceJamfBuilding() *schema.Resource {
 			},
 		},
 	}
-
-	return &schema.Resource{}
 }
 
 func buildJamfBuildingStruct(d *schema.ResourceData) *jamf.Building {
