@@ -214,11 +214,12 @@ func resourceJamfPolicy() *schema.Resource {
 									"target_drive": {
 										Type:     schema.TypeString,
 										Optional: true,
-										Default:  "default",
+										Default:  "/",
 									},
 									"distribution_point": {
 										Type:     schema.TypeString,
 										Optional: true,
+										Default:  "default",
 									},
 									"force_afp_smb": {
 										Type:     schema.TypeBool,
@@ -413,10 +414,12 @@ func resourceJamfPolicy() *schema.Resource {
 									"display_in": {
 										Type:     schema.TypeBool,
 										Optional: true,
+										Default:  true,
 									},
 									"feature_in": {
 										Type:     schema.TypeBool,
 										Optional: true,
+										Default:  false,
 									},
 								},
 							},
@@ -546,10 +549,12 @@ func resourceJamfPolicy() *schema.Resource {
 						"start_reboot_timer_immediately": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"file_vault_2_reboot": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 					},
 				},

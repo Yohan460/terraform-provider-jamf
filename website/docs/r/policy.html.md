@@ -69,8 +69,8 @@ The following arguments are supported:
     * `any_ip_address`              - (Optional) IP Address range required, Default `true`
     * `network_segments`            - (Optional) Network Segments required
   * `override_default_settings` - (Required) Default settings of the policy to override
-    * `target_drive`                - (Optional) Default target installation drive, Default `default`
-    * `distribution_point`          - (Optional) Default distribution point
+    * `target_drive`                - (Optional) Default target installation drive, Default `/`
+    * `distribution_point`          - (Optional) Default distribution point, Default `default`
     * `force_afp_smb`               - (Optional) ?
     * `sus`                         - (Optional) ?, Default `default`
   * `site`                      - (Required) Site of the policy
@@ -95,10 +95,10 @@ The following arguments are supported:
   * `feature_on_main_page`          - (Optional) State of main page featuring
   * `self_service_icon`             - (Required) Self Service icon configuration
     * `id`                              - (Optional) ID of the icon, Default `0`
-  * `self_service_category`         - (Optional) Self Service category configuration
-    * `id`                              - (Optional) ID of the category, if policy category is defined this will be need to be set to same category ID
-    * `display_in`                      - (Optional) Display state in the category
-    * `feature_in`                      - (Optional) Feature state in the category
+  * `self_service_category`         - (Optional) Self Service category configuration and this block can have multiple settings, if the policy category is defined this will need to be set to the same category at least one
+    * `id`                              - (Optional) ID of the category
+    * `display_in`                      - (Optional) Display state in the category, Default `true`
+    * `feature_in`                      - (Optional) Feature state in the category, Default `false`
 * `package`                     - (Optional) Package information assigned to the policy
   * `id`                            - (Required) ID of the package
   * `action`                        - (Optional) Action of the package, Default `INSTALL`
@@ -120,12 +120,12 @@ The following arguments are supported:
 * `reboot`                      - (Required) Reboot information assigned to the policy
   * `message`                       - (Optional) User message
   * `startup_disk`                  - (Optional) Startup disk after reboot, Default `Current Startup Disk`
-  * `specify_startup`               - (Optional) ?
+  * `specify_startup`               - (Optional) Local startup disk to boot computers when startup disk is `Specify Local Startup Disk`
   * `no_user_logged_in`             - (Optional) No user logged in functionality of the reboot, Default `Do not restart`
   * `user_logged_in`                - (Optional) User logged in functionality of the reboot, Default `Do not restart`
   * `minutes_until_reboot`          - (Optional) Minutes until the reboot triggers after reboot, Default `5`
-  * `start_reboot_timer_immediately`- (Optional) Reboot timer immediate state
-  * `file_vault_2_reboot`           - (Optional) ?
+  * `start_reboot_timer_immediately`- (Optional) Reboot timer immediate state, Default `false`
+  * `file_vault_2_reboot`           - (Optional) Restart FileVault 2-encrypted computers without requiring an unlock during the next startup, Default `false`
 * `maintenance`                 - (Optional) Maintenance information assigned to the policy
   * `recon`                         - (Optional) Recon state after policy completes
   * `reset_name`                    - (Optional) Reset name state
