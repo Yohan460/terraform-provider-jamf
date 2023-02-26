@@ -230,11 +230,6 @@ func resourceJamfPolicy() *schema.Resource {
 										Optional: true,
 										Default:  "default",
 									},
-									"netboot_server": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Default:  "current",
-									},
 								},
 							},
 						},
@@ -817,9 +812,6 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 			}
 			if val, ok := overrideDefaultSettings["sus"].(string); ok {
 				out.General.OverrideDefaultSettings.Sus = val
-			}
-			if val, ok := overrideDefaultSettings["netboot_server"].(string); ok {
-				out.General.OverrideDefaultSettings.NetbootServer = val
 			}
 		}
 

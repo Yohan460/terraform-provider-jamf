@@ -714,7 +714,6 @@ func deconstructJamfPolicyStruct(d *schema.ResourceData, in *jamf.Policy) {
 				"distribution_point": in.General.OverrideDefaultSettings.DistributionPoint,
 				"force_afp_smb":      in.General.OverrideDefaultSettings.ForceAfpSmb,
 				"sus":                in.General.OverrideDefaultSettings.Sus,
-				"netboot_server":     in.General.OverrideDefaultSettings.NetbootServer,
 			},
 		}
 	}

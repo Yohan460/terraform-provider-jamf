@@ -73,7 +73,6 @@ The following arguments are supported:
     * `distribution_point`          - (Optional) Default distribution point
     * `force_afp_smb`               - (Optional) ?
     * `sus`                         - (Optional) ?, Default `default`
-    * `netboot_server`              - (Optional) ?, Default `current`
   * `site`                      - (Required) Site of the policy
     * `id`                          - (Optional) ID of the site, Default `-1`
 * `scope`                       - (Required) Scope of the policy
