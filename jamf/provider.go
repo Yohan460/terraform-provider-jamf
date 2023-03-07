@@ -44,6 +44,7 @@ func Provider() *schema.Provider {
 			"jamf_script":                         resourceJamfScript(),
 			"jamf_policy":                         resourceJamfPolicy(),
 			"jamf_computer_configuration_profile": resourceJamfComputerConfigurationProfile(),
+			"jamf_computer_extension_attribute":   resourceJamfComputerExtensionAttribute(),
 		},
 
 		DataSourcesMap: map[string]*schema.Resource{
