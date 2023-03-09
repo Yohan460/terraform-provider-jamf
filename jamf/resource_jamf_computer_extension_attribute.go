@@ -30,14 +30,14 @@ func resourceJamfComputerExtensionAttribute() *schema.Resource {
 			"data_type": {
 				Type:         schema.TypeString,
 				Optional:     true,
-				Default:      "string",
-				ValidateFunc: validation.StringInSlice([]string{"string", "integer", "date"}, true),
+				Default:      "String",
+				ValidateFunc: validation.StringInSlice([]string{"String", "Integer", "Date"}, false),
 			},
 			"inventory_display": {
 				Type:         schema.TypeString,
 				Optional:     true,
 				Default:      "Extension Attributes",
-				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, true),
+				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, false),
 			},
 			"script": {
 				Type:         schema.TypeList,
@@ -50,6 +50,12 @@ func resourceJamfComputerExtensionAttribute() *schema.Resource {
 							Type:     schema.TypeBool,
 							Optional: true,
 							Default:  true,
+						},
+						"platform": {
+							Type:         schema.TypeString,
+							Optional:     true,
+							Default:      "Mac",
+							ValidateFunc: validation.StringInSlice([]string{"Mac", "Windows"}, false),
 						},
 						"script_contents": {
 							Type:          schema.TypeString,
