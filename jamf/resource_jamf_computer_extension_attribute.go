@@ -270,48 +270,6 @@ func resourceJamfComputerExtensionAttributeDelete(ctx context.Context, d *schema
 	return diags
 }
 
-// api to terraform
-func deconstructJamfComputerExtensionAttributeStruct(d *schema.ResourceData, in *jamf.ComputerExtensionAttribute) {
-	d.SetId(strconv.Itoa(in.Id))
-	d.Set("name", in.Name)
-	d.Set("description", in.Description)
-	d.Set("data_type", in.DataType)
-	d.Set("inventory_display", in.InventoryDisplay)
-	d.Set("recon_display", in.ReconDisplay)
-
-	// Input Type
-	switch inputType := in.InputType.Type; inputType {
-	case "script":
-		scriptInterface := map[string]interface{}{
-			"enabled":  in.Enabled,
-			"platform": in.InputType.Platform,
-		}
-
-		if s, ok := d.GetOk("script"); ok {
-			for _, v := range s.([]interface{}) {
-				script := v.(map[string]interface{})
-
-				// since file_path is always set in TypeList
-				if script["file_path"] == "" {
-					scriptInterface["script_contents"] = in.InputType.Script
-				}
-			}
-		}
-
-		d.Set("script", scriptInterface)
-	case "Text Field":
-		d.Set("text_field", []interface{}{})
-	case "Pop-up Menu":
-		d.Set("popup_menu", []interface{}{
-			map[string]interface{}{
-				"choices": in.InputType.Choices,
-			},
-		})
-	}
-
-	return
-}
-
 func importJamfComputerExtensionAttributeState(ctx context.Context, d *schema.ResourceData, m interface{}) ([]*schema.ResourceData, error) {
 	c := m.(*jamf.Client)
 	d.SetId(d.Id())

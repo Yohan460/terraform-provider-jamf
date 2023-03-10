@@ -57,6 +57,7 @@ func Provider() *schema.Provider {
 			"jamf_package":                        dataSourceJamfPackage(),
 			"jamf_policy":                         dataSourceJamfPolicy(),
 			"jamf_computer_configuration_profile": dataSourceJamfComputerConfigurationProfile(),
+			"jamf_computer_extension_attribute":   dataSourceJamfComputerExtensionAttribute(),
 		},
 		ConfigureContextFunc: providerConfigure,
 	}
