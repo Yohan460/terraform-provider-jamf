@@ -80,7 +80,17 @@ func resourceJamfComputerExtensionAttribute() *schema.Resource {
 				Type:     schema.TypeSet,
 				Optional: true,
 				MaxItems: 1,
-				Elem:     &schema.Resource{},
+				Elem: &schema.Resource{
+					Schema: map[string]*schema.Schema{
+						// set as a placeholder to `text_field` is recognized,
+						// this schema is not used anywhere
+						"input_type": {
+							Type:     schema.TypeString,
+							Computed: true,
+							Default:  "text_field",
+						},
+					},
+				},
 			},
 			"popup_menu": {
 				Type:     schema.TypeSet,
@@ -159,8 +169,7 @@ func buildJamfComputerExtensionAttributeStruct(d *schema.ResourceData) (*jamf.Co
 		}
 	}
 
-	// TODO: fix, exists still in script
-	if _, ok := d.GetOkExists("text_field"); ok {
+	if _, ok := d.GetOk("text_field"); ok {
 		out.InputType.Type = "Text Field"
 	}
 
