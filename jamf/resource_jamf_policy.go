@@ -214,11 +214,12 @@ func resourceJamfPolicy() *schema.Resource {
 									"target_drive": {
 										Type:     schema.TypeString,
 										Optional: true,
-										Default:  "default",
+										Default:  "/",
 									},
 									"distribution_point": {
 										Type:     schema.TypeString,
 										Optional: true,
+										Default:  "default",
 									},
 									"force_afp_smb": {
 										Type:     schema.TypeBool,
@@ -229,11 +230,6 @@ func resourceJamfPolicy() *schema.Resource {
 										Type:     schema.TypeString,
 										Optional: true,
 										Default:  "default",
-									},
-									"netboot_server": {
-										Type:     schema.TypeString,
-										Optional: true,
-										Default:  "current",
 									},
 								},
 							},
@@ -418,10 +414,12 @@ func resourceJamfPolicy() *schema.Resource {
 									"display_in": {
 										Type:     schema.TypeBool,
 										Optional: true,
+										Default:  true,
 									},
 									"feature_in": {
 										Type:     schema.TypeBool,
 										Optional: true,
+										Default:  false,
 									},
 								},
 							},
@@ -551,10 +549,12 @@ func resourceJamfPolicy() *schema.Resource {
 						"start_reboot_timer_immediately": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 						"file_vault_2_reboot": {
 							Type:     schema.TypeBool,
 							Optional: true,
+							Default:  false,
 						},
 					},
 				},
@@ -817,9 +817,6 @@ func buildJamfPolicyStruct(d *schema.ResourceData) *jamf.Policy {
 			}
 			if val, ok := overrideDefaultSettings["sus"].(string); ok {
 				out.General.OverrideDefaultSettings.Sus = val
-			}
-			if val, ok := overrideDefaultSettings["netboot_server"].(string); ok {
-				out.General.OverrideDefaultSettings.NetbootServer = val
 			}
 		}
 
