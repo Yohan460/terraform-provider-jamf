@@ -87,7 +87,6 @@ func resourceJamfComputerExtensionAttribute() *schema.Resource {
 						"input_type": {
 							Type:     schema.TypeString,
 							Computed: true,
-							Default:  "text_field",
 						},
 					},
 				},
@@ -180,7 +179,7 @@ func buildJamfComputerExtensionAttributeStruct(d *schema.ResourceData) (*jamf.Co
 		out.InputType.Type = "Pop-up Menu"
 
 		if v, ok := popup["choices"]; ok {
-			choices := v.([]interface{}) // TODO: did I type assert this right?
+			choices := v.([]interface{})
 			choicesList := make([]string, len(choices))
 			for i, c := range choices {
 				choicesList[i] = c.(string)

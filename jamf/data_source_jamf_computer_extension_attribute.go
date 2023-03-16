@@ -80,7 +80,6 @@ func dataSourceJamfComputerExtensionAttribute() *schema.Resource {
 						"input_type": {
 							Type:     schema.TypeString,
 							Computed: true,
-							Default:  "text_field",
 						},
 					},
 				},
@@ -148,7 +147,11 @@ func deconstructJamfComputerExtensionAttributeStruct(d *schema.ResourceData, in 
 
 		d.Set("script", scriptInterface)
 	case "Text Field":
-		d.Set("text_field", []interface{}{})
+		d.Set("text_field", []interface{}{
+			map[string]interface{}{
+				"input_type": "text_field",
+			},
+		})
 	case "Pop-up Menu":
 		d.Set("popup_menu", []interface{}{
 			map[string]interface{}{
