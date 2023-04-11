@@ -6,7 +6,7 @@ require (
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.4.3
 	github.com/mitchellh/go-homedir v1.1.0
-	github.com/yohan460/go-jamf-api v0.0.0-20221116181400-9279a31bfd4c
+	github.com/yohan460/go-jamf-api v0.0.0-20230411151701-d1c2c274032b
 )
 
 require (

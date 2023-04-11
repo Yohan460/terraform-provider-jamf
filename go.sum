@@ -302,8 +302,8 @@ github.com/vmihailenco/msgpack/v4 v4.3.12/go.mod h1:gborTTJjAo/GWTqqRjrLCn9pgNN+
 github.com/vmihailenco/tagparser v0.1.1/go.mod h1:OeAg3pn3UbLjkWt+rN9oFYB6u/cQgqMEUPoW2WPyhdI=
 github.com/xanzy/ssh-agent v0.2.1 h1:TCbipTQL2JiiCprBWx9frJ2eJlCYT00NmctrHxVAr70=
 github.com/xanzy/ssh-agent v0.2.1/go.mod h1:mLlQY/MoOhWBj+gOGMQkOeiEvkx+8pJSI+0Bx9h2kr4=
-github.com/yohan460/go-jamf-api v0.0.0-20221116181400-9279a31bfd4c h1:8hHLXtVHpCxV0vIvT09RZbrRWJrkVt7lhh7nnor+c+c=
-github.com/yohan460/go-jamf-api v0.0.0-20221116181400-9279a31bfd4c/go.mod h1:tBRMKJ3SjrouWaToIt9vqf7R63qtoi3UeQ486vcYz38=
+github.com/yohan460/go-jamf-api v0.0.0-20230411151701-d1c2c274032b h1:4EkYhRnTZxYkUYWhQySBA0wxdKGBioUJ8MB0gkyhNQE=
+github.com/yohan460/go-jamf-api v0.0.0-20230411151701-d1c2c274032b/go.mod h1:tBRMKJ3SjrouWaToIt9vqf7R63qtoi3UeQ486vcYz38=
 github.com/yuin/goldmark v1.1.25/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.27/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
 github.com/yuin/goldmark v1.1.32/go.mod h1:3hX8gzYuyVAZsxl0MRgGTJEmQBFcNTphYh9decYSb74=
