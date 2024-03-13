@@ -52,4 +52,4 @@ testacc: fmtcheck
 	TF_ACC=1 go test ./jamf -v -count 1 -parallel 20 $(TESTARGS) -timeout 120m
 
 fmtcheck:
-	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
+	@sh -c "'$(CURDIR)/website/docs/scripts/gofmtcheck.sh'"
