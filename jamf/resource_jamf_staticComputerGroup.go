@@ -60,7 +60,7 @@ func resourceJamfStaticComputerGroup() *schema.Resource {
 						},
 						"serial_number": {
 							Type:     schema.TypeString,
-							Computed: true,
+							Optional: true,
 						},
 					},
 				},
