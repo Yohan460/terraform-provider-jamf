@@ -27,6 +27,12 @@ func testAccPreCheck(t *testing.T) {
 	if !isURLSet() {
 		t.Fatal("JAMF_URL environment variable must be set for acceptance tests")
 	}
+	if !isClientIdSet() {
+		t.Fatal("JAMF_CLIENT_ID environment variable must be set for acceptance tests")
+	}
+	if !isClientSecretSet() {
+		t.Fatal("JAMF_CLIENT_SECRET environment variable must be set for acceptance tests")
+	}
 }
 
 func isUsernameSet() bool {
@@ -45,6 +51,20 @@ func isPasswordSet() bool {
 
 func isURLSet() bool {
 	if os.Getenv("JAMF_URL") != "" {
+		return true
+	}
+	return false
+}
+
+func isClientIdSet() bool {
+	if os.Getenv("JAMF_CLIENT_ID") != "" {
+		return true
+	}
+	return false
+}
+
+func isClientSecretSet() bool {
+	if os.Getenv("JAMF_CLIENT_SECRET") != "" {
 		return true
 	}
 	return false

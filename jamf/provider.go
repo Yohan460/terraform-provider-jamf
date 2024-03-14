@@ -27,6 +27,16 @@ func Provider() *schema.Provider {
 				Optional:    true,
 				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_PASSWORD"}, nil),
 			},
+			"client_id": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_CLIENT_ID"}, nil),
+			},
+			"client_secret": {
+				Type:        schema.TypeString,
+				Optional:    true,
+				DefaultFunc: schema.MultiEnvDefaultFunc([]string{"JAMF_CLIENT_SECRET"}, nil),
+			},
 			"url": {
 				Type:        schema.TypeString,
 				Optional:    true,
@@ -67,7 +77,14 @@ func Provider() *schema.Provider {
 
 func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}, diag.Diagnostics) {
 	var diags diag.Diagnostics
-	c, err := jamf.NewClient(d.Get("username").(string), d.Get("password").(string), d.Get("url").(string))
+	var c *jamf.Client
+	var err error
+	_, OAuth := d.GetOk("client_id")
+	if OAuth {
+		c, err = jamf.NewOAuthClient(d.Get("client_id").(string), d.Get("client_secret").(string), d.Get("url").(string))
+	} else {
+		c, err = jamf.NewClient(d.Get("username").(string), d.Get("password").(string), d.Get("url").(string))
+	}
 	if err != nil {
 		diag.FromErr(err)
 	}

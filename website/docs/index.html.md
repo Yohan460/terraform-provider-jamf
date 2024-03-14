@@ -67,10 +67,27 @@ provider "jamf" {
 }
 ```
 
+Starting with Jamf Pro 10.49, you can alternatively provide a client ID and 
+client secret from the 
+["API Roles and Clients"](https://learn.jamf.com/bundle/jamf-pro-documentation-10.49.0/page/API_Roles_and_Clients.html) 
+section of Jamf Pro preferences.
+
+Usage:
+
+```hcl
+provider "jamf" {
+    client_id = "xxxx"
+    client_secret = "xxxx"
+
+    # "This is the xxxx part of xxxx.jamfcloud.com"
+    url = "xxxx"
+}
+```
+
 ### Environment Variables
 
-You can provide your credentials via the `JAMF_USERNAME`, `JAMF_PASSWORD` and
-`JAMF_URL`, environment variables.
+You can provide your credentials via the `JAMF_USERNAME`, `JAMF_PASSWORD`, `JAMF_CLIENT_ID`, `JAMF_CLIENT_SECRET`, and
+`JAMF_URL` environment variables.
 
 ```hcl
 provider "jamf" {}
@@ -85,6 +102,17 @@ $ export JAMF_URL="xxxx"
 $ terraform plan
 ```
 
+Or, with API Clients (Jamf Pro 10.49+):
+
+Usage:
+
+```sh
+$ export JAMF_CLIENT_ID="xxxx"
+$ export JAMF_CLIENT_SECRET="xxxx"
+$ export JAMF_URL="xxxx"
+$ terraform plan
+```
+
 ## Argument Reference
 
 In addition to [generic `provider` arguments](https://www.terraform.io/docs/configuration/providers.html)
@@ -94,5 +122,9 @@ In addition to [generic `provider` arguments](https://www.terraform.io/docs/conf
 * `username` - (Optional) This is the Jamf username.
 
 * `password` - (Optional) This is the Jamf user password.
+
+* `client_id` - (Optional) This is the Jamf API client ID.
+
+* `client_secret` - (Optional) This is the Jamf API client secret.
 
 * `url` - (Optional) This is the Jamf server url.
