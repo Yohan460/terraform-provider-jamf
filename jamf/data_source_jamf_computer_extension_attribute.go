@@ -38,6 +38,11 @@ func dataSourceJamfComputerExtensionAttribute() *schema.Resource {
 				Default:      "Extension Attributes",
 				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, false),
 			},
+			"recon_display": {
+				Type:         schema.TypeString,
+				Optional:     true,
+				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, false),
+			},
 			"script": {
 				Type:         schema.TypeList,
 				Optional:     true,
