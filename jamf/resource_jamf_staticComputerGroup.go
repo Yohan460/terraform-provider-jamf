@@ -92,18 +92,15 @@ func buildJamfStaticComputerGroupStruct(d *schema.ResourceData) (*jamf.ComputerG
 		for _, c := range comps {
 			compData := c.(map[string]interface{})
 			comp := jamf.ComputerGroupComputerEntry{}
-			if val, ok := compData["id"].(int); ok {
-				comp.ID = val
-			}
 			if val, ok := compData["serial_number"].(string); ok {
 				comp.SerialNumber = val
 				if _, ok := compData["id"]; ok {
 					return nil, fmt.Errorf("must provide exactly one of \"serial_number\" or \"id\"")
 				}
+			} else if val, ok := compData["id"].(int); ok {
+				comp.ID = val
 			} else {
-				if _, ok := compData["id"]; !ok {
-					return nil, fmt.Errorf("must provide exactly one of \"serial_number\" or \"id\"")
-				}
+				return nil, fmt.Errorf("must provide exactly one of \"serial_number\" or \"id\"")
 			}
 			if val, ok := compData["name"].(string); ok {
 				comp.Name = val
