@@ -38,11 +38,6 @@ func dataSourceJamfComputerExtensionAttribute() *schema.Resource {
 				Default:      "Extension Attributes",
 				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, false),
 			},
-			"recon_display": {
-				Type:         schema.TypeString,
-				Optional:     true,
-				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, false),
-			},
 			"script": {
 				Type:         schema.TypeList,
 				Optional:     true,
@@ -134,44 +129,20 @@ func deconstructJamfComputerExtensionAttributeStruct(d *schema.ResourceData, in 
 	// Input Type
 	switch inputType := in.InputType.Type; inputType {
 	case "script":
-		scriptInterface := []interface{}{}
+		scriptInterface := map[string]interface{}{
+			"enabled":  in.Enabled,
+			"platform": in.InputType.Platform,
+		}
+
 		if s, ok := d.GetOk("script"); ok {
 			for _, v := range s.([]interface{}) {
 				script := v.(map[string]interface{})
-				filePath, hasFilePath := script["file_path"]
-				if hasFilePath {
-					if filePath == "" {
-						hasFilePath = false // since file_path is always set in TypeList
-					}
-				}
-				scriptContents, hasScriptContents := script["script_contents"]
-				if hasScriptContents {
-					if scriptContents == "" {
-						hasScriptContents = false // since script_contents is always set in TypeList
-					}
-				}
 
-				if hasFilePath {
-					scriptInterface = append(scriptInterface, map[string]interface{}{
-						"enabled":   in.Enabled,
-						"platform":  in.InputType.Platform,
-						"file_path": filePath,
-					})
-
-				} else {
-					scriptInterface = append(scriptInterface, map[string]interface{}{
-						"enabled":         in.Enabled,
-						"platform":        in.InputType.Platform,
-						"script_contents": in.InputType.Script,
-					})
+				// since file_path is always set in TypeList
+				if script["file_path"] == "" {
+					scriptInterface["script_contents"] = in.InputType.Script
 				}
 			}
-		} else {
-			scriptInterface = append(scriptInterface, map[string]interface{}{
-				"enabled":         in.Enabled,
-				"platform":        in.InputType.Platform,
-				"script_contents": in.InputType.Script,
-			})
 		}
 
 		d.Set("script", scriptInterface)
