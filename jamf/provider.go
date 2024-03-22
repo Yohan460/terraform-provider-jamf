@@ -79,16 +79,20 @@ func providerConfigure(ctx context.Context, d *schema.ResourceData) (interface{}
 	var diags diag.Diagnostics
 	var c *jamf.Client
 	var err error
-	_, OAuth := d.GetOk("client_id")
-	if OAuth {
-		c, err = jamf.NewOAuthClient(d.Get("client_id").(string), d.Get("client_secret").(string), d.Get("url").(string))
+
+	// Assume OAuth if var.client_id is provided
+	if _, ok := d.GetOk("client_id"); ok {
+		c, err = jamf.NewClient(d.Get("url").(string), jamf.WithOAuth(d.Get("client_id").(string), d.Get("client_secret").(string)))
 	} else {
-		c, err = jamf.NewClient(d.Get("username").(string), d.Get("password").(string), d.Get("url").(string))
+		c, err = jamf.NewClient(d.Get("url").(string), jamf.WithBasicAuth(d.Get("username").(string), d.Get("password").(string)))
 	}
+
 	if err != nil {
 		diag.FromErr(err)
 	}
+
 	c.ExtraHeader["User-Agent"] = AppName
 	c.HttpClient = cleanhttp.DefaultClient()
+
 	return c, diags
 }

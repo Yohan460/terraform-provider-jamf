@@ -7,7 +7,7 @@ OS_BUILD              := ${OS_TYPE}_amd64
 BINDIR               := ~/bin
 
 TERRAFORM            := ~/bin/terraform
-TERRAFORM_VERSION    := 0.13.4
+TERRAFORM_VERSION    := 1.6.5
 
 ### install
 terraform/install: file         = terraform_$(TERRAFORM_VERSION)_$(OS_TYPE)_$(OS_ARCH).zip
@@ -52,4 +52,4 @@ testacc: fmtcheck
 	TF_ACC=1 go test ./jamf -v -count 1 -parallel 20 $(TESTARGS) -timeout 120m
 
 fmtcheck:
-	@sh -c "'$(CURDIR)/scripts/gofmtcheck.sh'"
+	@sh -c "'$(CURDIR)/website/docs/scripts/gofmtcheck.sh'"
