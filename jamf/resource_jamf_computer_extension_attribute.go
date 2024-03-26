@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"time"
 
+	"github.com/avast/retry-go"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/diag"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/schema"
 	"github.com/hashicorp/terraform-plugin-sdk/v2/helper/validation"
@@ -45,6 +47,11 @@ func resourceJamfComputerExtensionAttribute() *schema.Resource {
 				Default:      "Extension Attributes",
 				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, false),
 			},
+			"recon_display": {
+				Type:         schema.TypeString,
+				Optional:     true,
+				ValidateFunc: validation.StringInSlice([]string{"General", "Hardware", "Operating System", "User and Location", "Purchasing", "Extension Attributes"}, false),
+			},
 			"script": {
 				Type:         schema.TypeList,
 				Optional:     true,
@@ -64,14 +71,8 @@ func resourceJamfComputerExtensionAttribute() *schema.Resource {
 							ValidateFunc: validation.StringInSlice([]string{"Mac", "Windows"}, false),
 						},
 						"script_contents": {
-							Type:          schema.TypeString,
-							Optional:      true,
-							ConflictsWith: []string{"script.0.file_path"},
-						},
-						"file_path": {
-							Type:          schema.TypeString,
-							Optional:      true,
-							ConflictsWith: []string{"script.0.script_contents"},
+							Type:     schema.TypeString,
+							Optional: true,
 						},
 					},
 				},
@@ -128,55 +129,20 @@ func buildJamfComputerExtensionAttributeStruct(d *schema.ResourceData) (*jamf.Co
 	}
 
 	if s, ok := d.GetOk("script"); ok {
-		for _, v := range s.([]interface{}) {
-			script := v.(map[string]interface{})
+		out.InputType.Type = "script"
 
-			out.InputType.Type = "script"
+		script := s.([]interface{})[0].(map[string]interface{})
 
-			if v, ok := script["enabled"]; ok {
-				out.Enabled = v.(bool)
-			}
-
-			if v, ok := script["platform"]; ok {
-				out.InputType.Platform = v.(string)
-			}
-
-			filePath, hasFilePath := script["file_path"]
-			if hasFilePath {
-				if filePath == "" {
-					hasFilePath = false // since file_path is always set in TypeList
-				}
-			}
-			scriptContents, hasScriptContents := script["script_contents"]
-			if hasScriptContents {
-				if scriptContents == "" {
-					hasScriptContents = false // since script_contents is always set in TypeList
-				}
-			}
-
-			if hasFilePath && !hasScriptContents {
-				content, err := loadFileContent(filePath.(string))
-				if err != nil {
-					return &out, err
-				}
-				out.InputType.Script = content
-			} else if !hasFilePath && hasScriptContents && scriptContents != "" {
-				out.InputType.Script = scriptContents.(string)
-			} else {
-				return &out, fmt.Errorf("only one of file_path and script_contents must be set")
-			}
-		}
-	}
-
-	if _, ok := d.GetOk("text_field"); ok {
+		out.Enabled = script["enabled"].(bool)
+		out.InputType.Platform = script["platform"].(string)
+		out.InputType.Script = script["script_contents"].(string)
+	} else if _, ok := d.GetOk("text_field"); ok {
 		out.InputType.Type = "Text Field"
-	}
+	} else if s, ok := d.GetOk("popup_menu"); ok {
+		out.InputType.Type = "Pop-up Menu"
 
-	if s, ok := d.GetOk("popup_menu"); ok {
 		val := s.(*schema.Set).List()
 		popup := val[0].(map[string]interface{})
-
-		out.InputType.Type = "Pop-up Menu"
 
 		if v, ok := popup["choices"]; ok {
 			choices := v.([]interface{})
@@ -219,17 +185,39 @@ func resourceJamfComputerExtensionAttributeCreate(ctx context.Context, d *schema
 
 func resourceJamfComputerExtensionAttributeRead(ctx context.Context, d *schema.ResourceData, m interface{}) diag.Diagnostics {
 	var diags diag.Diagnostics
+	var resp *jamf.ComputerExtensionAttribute
 	c := m.(*jamf.Client)
 
-	id, _ := strconv.Atoi(d.Id())
-	resp, err := c.GetComputerExtensionAttribute(id)
+	id, err := strconv.Atoi(d.Id())
+	if err != nil {
+		return diag.FromErr(err)
+	}
+
+	err = retry.Do(
+		func() error {
+			resp, err = c.GetComputerExtensionAttribute(id)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		},
+		retry.RetryIf(
+			func(e error) bool {
+				if jamfErr, ok := e.(jamf.Error); ok && jamfErr.StatusCode() == 404 {
+					return true
+				} else {
+					return false
+				}
+			},
+		),
+		retry.Attempts(3),
+		retry.Delay(2*time.Second),
+		retry.MaxJitter(1*time.Second),
+	)
 
 	if err != nil {
-		if jamfErr, ok := err.(jamf.Error); ok && jamfErr.StatusCode() == 404 {
-			d.SetId("")
-		} else {
-			return diag.FromErr(err)
-		}
+		return diag.FromErr(err)
 	} else {
 		deconstructJamfComputerExtensionAttributeStruct(d, resp)
 	}
@@ -260,7 +248,30 @@ func resourceJamfComputerExtensionAttributeDelete(ctx context.Context, d *schema
 		return diag.FromErr(err)
 	}
 
-	if _, err := c.DeleteComputerExtensionAttribute(id); err != nil {
+	err = retry.Do(
+		func() error {
+			_, err := c.DeleteComputerExtensionAttribute(id)
+			if err != nil {
+				return err
+			}
+
+			return nil
+		},
+		retry.RetryIf(
+			func(e error) bool {
+				if jamfErr, ok := e.(jamf.Error); ok && jamfErr.StatusCode() == 404 {
+					return true
+				} else {
+					return false
+				}
+			},
+		),
+		retry.Attempts(3),
+		retry.Delay(2*time.Second),
+		retry.MaxJitter(1*time.Second),
+	)
+
+	if err != nil {
 		return diag.FromErr(err)
 	}
 

@@ -3,6 +3,7 @@ module github.com/yohan460/terraform-provider-jamf
 go 1.18
 
 require (
+	github.com/avast/retry-go v3.0.0+incompatible
 	github.com/hashicorp/go-cleanhttp v0.5.2
 	github.com/hashicorp/terraform-plugin-sdk/v2 v2.16.0
 	github.com/mitchellh/go-homedir v1.1.0

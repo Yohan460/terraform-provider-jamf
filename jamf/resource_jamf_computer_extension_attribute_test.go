@@ -12,48 +12,41 @@ func TestAccJamfComputerExtensionAttribute_basic(t *testing.T) {
 	resource.ParallelTest(t, resource.TestCase{
 		PreCheck:          func() { testAccPreCheck(t) },
 		ProviderFactories: providerFactories,
+		CheckDestroy: resource.ComposeTestCheckFunc(
+			testAccCheckJamfComputerExtensionAttributeExists("jamf_computer_extension_attribute.extensionattribute-test"),
+		),
 		Steps: []resource.TestStep{
 			{
 				Config: testAccCheckJamfComputerExtensionAttributeScript,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckJamfComputerExtensionAttributeExists("jamf_computer_extension_attribute.extensionattribute-script"),
-				),
 			},
 			{
 				Config: testAccCheckJamfComputerExtensionAttributeTextField,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckJamfComputerExtensionAttributeExists("jamf_computer_extension_attribute.extensionattribute-textfield"),
-				),
 			},
 			{
 				Config: testAccCheckJamfComputerExtensionAttributePopup,
-				Check: resource.ComposeTestCheckFunc(
-					testAccCheckJamfComputerExtensionAttributeExists("jamf_computer_extension_attribute.extensionattribute-popup"),
-				),
 			},
 		},
 	})
 }
 
 const (
-	testAccCheckJamfComputerExtensionAttributeScript = `resource "jamf_computer_extension_attribute" "extensionattribute-script" {
+	testAccCheckJamfComputerExtensionAttributeScript = `resource "jamf_computer_extension_attribute" "extensionattribute-test" {
 		name = "Terraform test script"
 		description = "testing jamf extension attribute resource"
-		data_type = "string"
+		data_type = "String"
 		inventory_display = "Extension Attributes" 
 
 		script {
-			enabled = false
 			script_contents = "#!/bin/bash\nprint(\"hello world\")"
 		}
 	}`
 
-	testAccCheckJamfComputerExtensionAttributeTextField = `resource "jamf_computer_extension_attribute" "extensionattribute-textfield" {
+	testAccCheckJamfComputerExtensionAttributeTextField = `resource "jamf_computer_extension_attribute" "extensionattribute-test" {
 		name = "Terraform test textfield"
 		text_field {}
 	}`
 
-	testAccCheckJamfComputerExtensionAttributePopup = `resource "jamf_computer_extension_attribute" "extensionattribute-popup" {
+	testAccCheckJamfComputerExtensionAttributePopup = `resource "jamf_computer_extension_attribute" "extensionattribute-test" {
 		name = "Terraform test popup"
 		popup_menu {
 			choices = ["choice1", "choice2"]
