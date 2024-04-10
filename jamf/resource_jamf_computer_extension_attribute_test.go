@@ -39,7 +39,7 @@ const (
 	testAccCheckJamfComputerExtensionAttributeScript = `resource "jamf_computer_extension_attribute" "extensionattribute-script" {
 		name = "Terraform test script"
 		description = "testing jamf extension attribute resource"
-		data_type = "string"
+		data_type = "String"
 		inventory_display = "Extension Attributes" 
 
 		script {
